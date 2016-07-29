@@ -1,0 +1,7 @@
+---
+Name: share_this_simple
+---
+
+SiteTree:
+  extensions:
+    - ShareThisSimpleExtension

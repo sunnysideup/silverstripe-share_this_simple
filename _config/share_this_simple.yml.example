@@ -1,0 +1,9 @@
+---
+Name: share_this_simple_custom
+---
+
+ShareThisSimpleExtension:
+  description_method: "getSummary"
+  image_methods:
+    - "getImage"
+    - "anotherMethodThatMayWork"
