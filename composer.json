@@ -2,21 +2,27 @@
     "name": "sunnysideup/share_this_simple",
     "type": "silverstripe-module",
     "description": "Silverstripe Module that provides a simple way to add share this links to your website.",
-    "keywords": ["share", "social media", "share links", "facebook", "pinterest", "twitter", "Site Tree Extensions"],
+    "keywords": [
+        "share",
+        "social media",
+        "share links",
+        "facebook",
+        "pinterest",
+        "twitter",
+        "Site Tree Extensions"
+    ],
     "license": "Sunny Side Up (BSD-3-Clause and CUSTOM)",
-    "authors":[
+    "authors": [
         {
             "name": "Nicolaas Francken",
-            "homepage": "https://github.com/sunnysideup",
-            "email" : "modules@sunnysideup.co.nz",
-            "role" : "lead developer"
+            "email": "modules@sunnysideup.co.nz",
+            "role": "lead developer"
         }
     ],
-    "require":{
+    "require": {
         "silverstripe/framework": "^3.4"
     },
     "extra": {
         "installer-name": "share_this_simple"
     }
-
 }
