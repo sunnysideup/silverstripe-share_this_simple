@@ -2,7 +2,6 @@
 
 class ShareThisSimpleProvider extends ViewableData
 {
-
     private static $description_method = "";
 
     private static $image_methods = array();
@@ -27,7 +26,8 @@ class ShareThisSimpleProvider extends ViewableData
     /**
      * @param SiteTree $objects
      */
-    public function __construct(SiteTree $object) {
+    public function __construct(SiteTree $object)
+    {
         $this->object = $object;
     }
 
@@ -41,7 +41,7 @@ class ShareThisSimpleProvider extends ViewableData
     {
         $arrayList = ArrayList::create();
         $options = array_keys($this->stat('casting'));
-        foreach($options as $option) {
+        foreach ($options as $option) {
             $className  = str_replace('ShareLink', '', $option);
             $className  = strtolower($className);
             $method = "get".$option;
@@ -236,7 +236,8 @@ class ShareThisSimpleProvider extends ViewableData
      *
      * @return array
      */
-    private function getShareThisArray($customDescription = ''){
+    private function getShareThisArray($customDescription = '')
+    {
         //1. link
         $link = $this->object->AbsoluteLink();
 
@@ -246,13 +247,13 @@ class ShareThisSimpleProvider extends ViewableData
         //3. media field
         $media = "";
         $imageMethods = Config::inst()->get("ShareThisSimpleProvider", "image_methods");
-        if(is_array($imageMethods) && count($imageMethods)) {
-            foreach($imageMethods as $imageMethod) {
-                if($this->object->hasMethod($imageMethod)) {
+        if (is_array($imageMethods) && count($imageMethods)) {
+            foreach ($imageMethods as $imageMethod) {
+                if ($this->object->hasMethod($imageMethod)) {
                     $imageField = $imageMethod."ID";
-                    if($this->$imageField) {
+                    if ($this->$imageField) {
                         $image = $this->object->$imageMethod();
-                        if($image && $image->exists()) {
+                        if ($image && $image->exists()) {
                             $media = $image->AbsoluteLink();
                             break;
                         }
@@ -262,13 +263,13 @@ class ShareThisSimpleProvider extends ViewableData
         }
 
         //description
-        if($customDescription) {
+        if ($customDescription) {
             $description = $customDescription;
         } else {
             $descriptionMethod = Config::inst()->get("ShareThisSimpleProvider", "description_method");
             $description = "";
-            if($descriptionMethod) {
-                if($this->object->hasMethod($descriptionMethod)) {
+            if ($descriptionMethod) {
+                if ($this->object->hasMethod($descriptionMethod)) {
                     $description = $this->object->$descriptionMethod();
                 }
             }
@@ -280,7 +281,6 @@ class ShareThisSimpleProvider extends ViewableData
             "media" => rawurlencode($media),
             "description" => rawurlencode($description)
         );
-
     }
 
     /**
@@ -295,10 +295,10 @@ class ShareThisSimpleProvider extends ViewableData
     }
     public function getPinterestLinkForSpecificImage($imageMethod, $useImageTitle = false)
     {
-        if($this->object && $this->object->hasMethod($imageMethod)) {
+        if ($this->object && $this->object->hasMethod($imageMethod)) {
             $image = $this->object->$imageMethod();
-            if($image && $image->exists()) {
-                if($useImageTitle) {
+            if ($image && $image->exists()) {
+                if ($useImageTitle) {
                     $imageTitle = $image->Title;
                 } else {
                     $imageTitle = $this->object->Title;
@@ -310,6 +310,4 @@ class ShareThisSimpleProvider extends ViewableData
             }
         }
     }
-
-
 }

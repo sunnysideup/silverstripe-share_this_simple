@@ -3,6 +3,9 @@
     "type": "silverstripe-module",
     "description": "Silverstripe Module that provides a simple way to add share this links to your website.",
     "keywords": [
+        "Silverstripe-CMS",
+        "CMS",
+        "Silverstripe",
         "share",
         "social media",
         "share links",
@@ -20,7 +23,8 @@
         }
     ],
     "require": {
-        "silverstripe/framework": "^3.4"
+        "silverstripe/framework": "~3.1",
+        "silverstripe/cms": "~3.1"
     },
     "extra": {
         "installer-name": "share_this_simple"

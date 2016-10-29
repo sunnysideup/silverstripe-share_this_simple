@@ -10,12 +10,11 @@ class ShareThisSimpleExtension extends SiteTreeExtension
      *
      * @return ShareThisSimpleProvider
      */
-    function ShareThisSimpleProvider()
+    public function ShareThisSimpleProvider()
     {
-        if(!isset($_share_this_simple_provider[$this->owner->ID])) {
+        if (!isset($_share_this_simple_provider[$this->owner->ID])) {
             $_share_this_simple_provider[$this->owner->ID] = ShareThisSimpleProvider::create($this->owner);
         }
         return $_share_this_simple_provider[$this->owner->ID];
     }
-
 }
