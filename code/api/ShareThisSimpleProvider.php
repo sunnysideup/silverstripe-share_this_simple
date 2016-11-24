@@ -31,6 +31,19 @@ class ShareThisSimpleProvider extends ViewableData
         $this->object = $object;
     }
 
+    protected $linkMethod = '';
+
+    function setLinkMethod($s)
+    {
+        $this->linkMethod = $s;
+    }
+
+    protected $titleMethod = '';
+
+    function setTitleMethod($s)
+    {
+        $this->titleMethod = $s;
+    }
 
     /**
      * return of ShareThisLinks.
@@ -239,10 +252,21 @@ class ShareThisSimpleProvider extends ViewableData
     private function getShareThisArray($customDescription = '')
     {
         //1. link
-        $link = $this->object->AbsoluteLink();
+        $linkMethod = $this->linkMethod
+        if($this->object->hasMethod($linkMethod)) {
+            $link = $this->object->$linkMethod();
+        } else {
+            $link = $this->object->AbsoluteLink();
+        }
+
 
         //2. title
-        $title = $this->object->Title;
+        $titleMethod = $this->titleMethod
+        if($this->object->hasMethod($titleMethod)) {
+            $title = $this->object->$titleMethod();
+        } else {
+            $title = $this->object->Title;
+        }
 
         //3. media field
         $media = "";
