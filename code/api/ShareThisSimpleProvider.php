@@ -31,18 +31,32 @@ class ShareThisSimpleProvider extends ViewableData
         $this->object = $object;
     }
 
-    protected $linkMethod = '';
+    protected $linkMethod = 'AbsoluteLink';
 
     function setLinkMethod($s)
     {
         $this->linkMethod = $s;
     }
 
-    protected $titleMethod = '';
+    protected $titleMethod = 'Title';
 
     function setTitleMethod($s)
     {
         $this->titleMethod = $s;
+    }
+
+    protected $imageMethods = array();
+
+    function setImageMethods($a)
+    {
+        $this->imageMethods = $a;
+    }
+
+    protected $descriptionMethod = '';
+
+    function setDescriptionMethod($s)
+    {
+        $this->descriptionMethod = $s;
     }
 
     /**
@@ -252,25 +266,26 @@ class ShareThisSimpleProvider extends ViewableData
     private function getShareThisArray($customDescription = '')
     {
         //1. link
-        $linkMethod = $this->linkMethod
+        $linkMethod = $this->linkMethod;
         if($this->object->hasMethod($linkMethod)) {
             $link = $this->object->$linkMethod();
-        } else {
-            $link = $this->object->AbsoluteLink();
         }
 
-
         //2. title
-        $titleMethod = $this->titleMethod
+        $titleMethod = $this->titleMethod;
         if($this->object->hasMethod($titleMethod)) {
             $title = $this->object->$titleMethod();
-        } else {
-            $title = $this->object->Title;
+        } elseif(isset($this->object->$titleMethod)) {
+            $title = $this->object->$titleMethod;
         }
 
         //3. media field
         $media = "";
-        $imageMethods = Config::inst()->get("ShareThisSimpleProvider", "image_methods");
+        if($this->imageMethods) {
+            $imageMethods = $this->imageMethods;
+        } else {
+            $imageMethods = Config::inst()->get("ShareThisSimpleProvider", "image_methods");
+        }
         if (is_array($imageMethods) && count($imageMethods)) {
             foreach ($imageMethods as $imageMethod) {
                 if ($this->object->hasMethod($imageMethod)) {
@@ -290,11 +305,17 @@ class ShareThisSimpleProvider extends ViewableData
         if ($customDescription) {
             $description = $customDescription;
         } else {
-            $descriptionMethod = Config::inst()->get("ShareThisSimpleProvider", "description_method");
             $description = "";
+            if($descriptionMethod = $this->descriptionMethod) {
+                //do nothing
+            } else {
+                $descriptionMethod = Config::inst()->get("ShareThisSimpleProvider", "description_method");
+            }
             if ($descriptionMethod) {
                 if ($this->object->hasMethod($descriptionMethod)) {
                     $description = $this->object->$descriptionMethod();
+                } elseif(isset($this->object->$descriptionMethod)) {
+                    $description = $this->object->$descriptionMethod;
                 }
             }
         }
