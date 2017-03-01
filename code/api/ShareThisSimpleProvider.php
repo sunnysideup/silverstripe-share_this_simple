@@ -131,7 +131,7 @@ class ShareThisSimpleProvider extends ViewableData
     {
         extract($this->getShareThisArray($customDescription));
 
-        return ($pageURL) ? "https://twitter.com/intent/tweet?source=$pageURL&text=$title=" : false;
+        return ($pageURL) ? "https://twitter.com/intent/tweet?source=$pageURL&text=$title" : false;
     }
 
     /**
