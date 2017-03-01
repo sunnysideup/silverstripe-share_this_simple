@@ -106,7 +106,7 @@ class ShareThisSimpleProvider extends ViewableData
     {
         extract($this->getShareThisArray($customDescription));
 
-        return ($pageURL) ? "https://www.facebook.com/sharer/sharer.php?u=$pageURL" : false;
+        return ($pageURL) ? "https://www.facebook.com/sharer/sharer.php?u=$pageURL&t=$title" : false;
     }
 
     /**
@@ -131,7 +131,7 @@ class ShareThisSimpleProvider extends ViewableData
     {
         extract($this->getShareThisArray($customDescription));
 
-        return ($pageURL) ? "https://twitter.com/intent/tweet?text=$title&url=$pageURL" : false;
+        return ($pageURL) ? "https://twitter.com/intent/tweet?source=$pageURL&text=$title=" : false;
     }
 
     /**
@@ -182,6 +182,7 @@ class ShareThisSimpleProvider extends ViewableData
         extract($this->getShareThisArray($customDescription));
 
         return ($pageURL) ? "http://www.tumblr.com/share/link?url=$pageURL&name=$title&description=$description" : false;
+
     }
 
     /**
