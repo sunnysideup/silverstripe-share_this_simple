@@ -15,7 +15,7 @@
 
  * [Developer Docs](docs/en/INDEX.md)
  * [User Guide](docs/en/userguide.md)
- * [API Docs](http://docs.ssmods.com/sunnysideup/share_this_simple)
+ * [API Docs](http://docs.ssmods.com/sunnysideup/share_this_simple/classes.xhtml)
 
 ## Requirements
 
