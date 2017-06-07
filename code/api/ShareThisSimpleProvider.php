@@ -61,7 +61,7 @@ class ShareThisSimpleProvider extends ViewableData
 
     /**
      * return of ShareThisLinks.
-     *
+     * @param string $customDescription   e.g. foo bar cool stuff
      * @return ArrayList
      */
     public function ShareThisLinks($customDescription= '')
@@ -89,7 +89,7 @@ class ShareThisSimpleProvider extends ViewableData
     /**
      * ALIAS
      * Generate a URL to share this content on Facebook.
-     *
+     * @param string $customDescription   e.g. foo bar cool stuff
      * @return string|false
      */
     public function FacebookShareLink($customDescription = '')
@@ -99,7 +99,7 @@ class ShareThisSimpleProvider extends ViewableData
 
     /**
      * Generate a URL to share this content on Facebook.
-     *
+     * @param string $customDescription   e.g. foo bar cool stuff
      * @return string|false
      */
     public function getFacebookShareLink($customDescription = '')
@@ -113,18 +113,18 @@ class ShareThisSimpleProvider extends ViewableData
      * ALIAS
      * Generate a URL to share this content on Twitter
      * Specs: https://dev.twitter.com/web/tweet-button/web-intent.
-     *
+     * @param string $customDescription   e.g. foo bar cool stuff
      * @return string|false
      */
     public function TwitterShareLink($customDescription = '')
     {
-        return $this->getTwitterShareLink();
+        return $this->getTwitterShareLink($customDescription);
     }
 
     /**
      * Generate a URL to share this content on Twitter
      * Specs: https://dev.twitter.com/web/tweet-button/web-intent.
-     *
+     * @param string $customDescription   e.g. foo bar cool stuff
      * @return string|false
      */
     public function getTwitterShareLink($customDescription = '')
@@ -138,18 +138,18 @@ class ShareThisSimpleProvider extends ViewableData
      * ALIAS
      * Generate a URL to share this content on Twitter
      * Specs: https://dev.twitter.com/web/tweet-button/web-intent.
-     *
+     * @param string $customDescription   e.g. foo bar cool stuff
      * @return string|false
      */
     public function GooglePlusShareLink($customDescription = '')
     {
-        return $this->getGooglePlusShareLink();
+        return $this->getGooglePlusShareLink($customDescription);
     }
 
     /**
      * Generate a URL to share this content on Twitter
      * Specs: https://dev.twitter.com/web/tweet-button/web-intent.
-     *
+     * @param string $customDescription   e.g. foo bar cool stuff
      * @return string|false
      */
     public function getGooglePlusShareLink($customDescription = '')
@@ -163,18 +163,18 @@ class ShareThisSimpleProvider extends ViewableData
      * ALIAS
      * Generate a URL to share this content on Twitter
      * Specs: https://dev.twitter.com/web/tweet-button/web-intent.
-     *
+     * @param string $customDescription   e.g. foo bar cool stuff
      * @return string|false
      */
     public function TumblrShareLink($customDescription = '')
     {
-        return $this->getTumblrShareLink();
+        return $this->getTumblrShareLink($customDescription);
     }
 
     /**
      * Generate a URL to share this content on Twitter
      * Specs: https://dev.twitter.com/web/tweet-button/web-intent.
-     *
+     * @param string $customDescription   e.g. foo bar cool stuff
      * @return string|false
      */
     public function getTumblrShareLink($customDescription = '')
@@ -189,18 +189,18 @@ class ShareThisSimpleProvider extends ViewableData
      * ALIAS
      * Generate a URL to share this content on Twitter
      * Specs: https://dev.twitter.com/web/tweet-button/web-intent.
-     *
+     * @param string $customDescription   e.g. foo bar cool stuff
      * @return string|false
      */
     public function PinterestShareLink($customDescription = '')
     {
-        return $this->getPinterestShareLink();
+        return $this->getPinterestShareLink($customDescription);
     }
 
     /**
      * Generate a URL to share this content on Twitter
      * Specs: https://dev.twitter.com/web/tweet-button/web-intent.
-     *
+     * @param string $customDescription   e.g. foo bar cool stuff
      * @return string|false
      */
     public function getPinterestShareLink($customDescription = '')
@@ -213,17 +213,17 @@ class ShareThisSimpleProvider extends ViewableData
     /**
      * ALIAS
      * Generate a 'mailto' URL to share this content via Email.
-     *
+     * @param string $customDescription   e.g. foo bar cool stuff
      * @return string|false
      */
     public function EmailShareLink($customDescription = '')
     {
-        return $this->getEmailShareLink();
+        return $this->getEmailShareLink($customDescription);
     }
 
     /**
      * Generate a 'mailto' URL to share this content via Email.
-     *
+     * @param string $customDescription   e.g. foo bar cool stuff
      * @return string|false
      */
     public function getEmailShareLink($customDescription = '')
@@ -238,18 +238,18 @@ class ShareThisSimpleProvider extends ViewableData
      * ALIAS
      * Generate a URL to share this content on Twitter
      * Specs: https://dev.twitter.com/web/tweet-button/web-intent.
-     *
+     * @param string $customDescription   e.g. foo bar cool stuff
      * @return string|false
      */
     public function RedditShareLink($customDescription = '')
     {
-        return $this->getRedditShareLink();
+        return $this->getRedditShareLink($customDescription);
     }
 
     /**
      * Generate a URL to share this content on Twitter
      * Specs: https://dev.twitter.com/web/tweet-button/web-intent.
-     *
+     * @param string $customDescription   e.g. foo bar cool stuff
      * @return string|false
      */
     public function getRedditShareLink($customDescription = '')
@@ -260,7 +260,7 @@ class ShareThisSimpleProvider extends ViewableData
     }
 
     /**
-     *
+     * @param string $customDescription   e.g. foo bar cool stuff
      *
      * @return array
      */
@@ -334,10 +334,15 @@ class ShareThisSimpleProvider extends ViewableData
      *
      * @param string $imageMethod   e.g. MyImage
      * @param bool $useImageTitle  if set to false, it will use the page title as the image title
+     *
+     * @return string
      */
     public function PinterestLinkForSpecificImage($imageMethod, $useImageTitle = false)
     {
-        return $this->getPinterestLinkForSpecificImage($imageMethod, $useImageTitle);
+        return $this->getPinterestLinkForSpecificImage(
+            $imageMethod,
+            $useImageTitle
+        );
     }
     public function getPinterestLinkForSpecificImage($imageMethod, $useImageTitle = false)
     {
