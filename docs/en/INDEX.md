@@ -11,3 +11,40 @@ Options are:
  * PinterestShareLink
  * EmailShareLink
  * RedditShareLink
+
+
+# Install
+
+As per usual - nothing special.
+
+# Usage
+
+in template within context of a page:
+
+```html
+    <a href="$ShareThisSimpleProvider.FacebookShareLink">Share on Facebook</a>
+```
+OR
+
+```html
+    <a href="$ShareThisSimpleProvider.TwitterShareLink">Share on Twitter</a>
+```
+OR
+
+```html
+<% loop $ShareThisSimpleProvider.ShareThisLinks %>
+    <a href="$Link" class="$Class">add icon here using class ...</a>
+<% end_loop %>
+```
+
+
+# you can also add the following to the config:
+
+```yml
+
+MyModelObject:
+  extensions:
+    - ShareThisSimpleExtension
+
+```
+The object will need to have a Link method...
