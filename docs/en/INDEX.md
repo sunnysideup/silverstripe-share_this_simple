@@ -47,4 +47,5 @@ MyModelObject:
     - ShareThisSimpleExtension
 
 ```
-The object will need to have a Link method...
+
+The object will need to have a `Link` method...
