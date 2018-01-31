@@ -182,7 +182,6 @@ class ShareThisSimpleProvider extends ViewableData
         extract($this->getShareThisArray($customDescription));
 
         return ($pageURL) ? "http://www.tumblr.com/share/link?url=$pageURL&name=$title&description=$description" : false;
-
     }
 
     /**
