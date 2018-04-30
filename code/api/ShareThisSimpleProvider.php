@@ -19,12 +19,12 @@ class ShareThisSimpleProvider extends ViewableData
 
 
     /**
-     * @var SiteTree
+     * @var DataObject
      */
     protected $object;
 
     /**
-     * @param SiteTree $objects
+     * @param DataObject $object
      */
     public function __construct($object)
     {
