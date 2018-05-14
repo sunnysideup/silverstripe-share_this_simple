@@ -1,11 +1,7 @@
 <?php
 
-class ShareThisSimpleExtension extends SiteTreeExtension
+class ShareThisSimpleExtension extends DataExtension
 {
-    public function canAddChildren($member = null)
-    {
-    }
-
     private static $_share_this_simple_provider = array();
     /**
      * use in your templates like this:
