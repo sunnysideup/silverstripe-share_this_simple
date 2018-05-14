@@ -2,7 +2,8 @@
 
 class ShareThisSimpleExtension extends SiteTreeExtension
 {
-    public function canAddChildren($member = null) {
+    public function canAddChildren($member = null)
+    {
     }
 
     private static $_share_this_simple_provider = array();
