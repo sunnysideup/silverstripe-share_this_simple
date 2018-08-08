@@ -9,19 +9,10 @@ jQuery(document).ready(
             function(event)
             {
                 event.preventDefault();
-                var el = jQuery(this)
+                jQuery(this)
                     .closest('.share-holder')
-                    .find('.share-expanded');
-                el.slideToggle();
-
-                //auto-close after xxx-seconds.
-                window.setTimeout(
-                    function()
-                    {
-                        el.slideToggle();
-                    },
-                    7000
-                )
+                    .find('.share-expanded')
+                    .slideToggle();
                 return false;
             }
         )
