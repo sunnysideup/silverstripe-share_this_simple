@@ -4,7 +4,9 @@ class ShareThisSimpleProvider extends ViewableData
 {
     private static $description_method = '';
 
-    private static $default_twitter_handle = '';
+    private static $default_mentions = [];
+
+    private static $default_vias = [];
 
     private static $default_hash_tags = [];
 
@@ -63,18 +65,25 @@ class ShareThisSimpleProvider extends ViewableData
         $this->descriptionMethod = $s;
     }
 
-    protected $hasTags = [];
+    protected $hashTags = [];
 
     public function setHashTags($a)
     {
-        $this->hasTags = $a;
+        $this->hashTags = $a;
     }
 
-    protected $twitterHandle = '';
+    protected $mentions = '';
 
-    public function setTwitterHandle($s)
+    public function setMentions($a)
     {
-        $this->twitterHandle = $s;
+        $this->mentions = $a;
+    }
+
+    protected $vias = [];
+
+    public function setVias($a)
+    {
+        $this->vias = $a;
     }
 
     /**
@@ -150,7 +159,7 @@ class ShareThisSimpleProvider extends ViewableData
     {
         extract($this->getShareThisArray($customDescription));
 
-        return ($pageURL) ? "https://twitter.com/intent/tweet?source=$pageURL&text=$title" : false;
+        return ($pageURL) ? "https://twitter.com/intent/tweet?source=$pageURL&text=$desc.': '.$pageURL" : false;
     }
 
     /**
@@ -339,17 +348,37 @@ class ShareThisSimpleProvider extends ViewableData
             }
         }
 
-        if($this->Config()->get('default_twitter_handle'))
+        $hashTags = $this->getValuesFromArrayToString('hashTags', 'hash_tags', '#');
+        $mentions = $this->getValuesFromArrayToString('mentions', 'mentions', '@');
+        $vias = $this->getValuesFromArrayToString('vias', 'vias', '@');
 
-        $hashTags = '#'.implode(' #', $this->hasTags);
         //return ...
         return array(
             "pageURL" => rawurlencode($link),
             "title" => rawurlencode($title),
+            "titleFull" => rawurlencode(trim($mentions.' '.$title.' '.$hasTags.' '.$via)),
             "media" => rawurlencode($media),
-            "description" => rawurlencode($description.$hasTags.$mentions),
-            "twitterHandle" => rawurlencode($this->menti)
+            "description" => rawurlencode($description),
+            "descriptionFull" => rawurlencode(trim($mentions.' '.$description.' '.$hasTags.' '.$via)),
+            "hashTags" => rawurlencode($mentions),
+            "mentions" => rawurlencode($mentions),
+            "vias" => rawurlencode($vias)
         );
+    }
+
+    protected function getValuesFromArrayToString($variable, $staticVariable, $prepender = '@')
+    {
+        if(count($this->$variable)) {
+            $a = $this->$variable;
+        } else {
+            $a = $this->Config()->get($variable);
+        }
+        $str = '';
+        if(count($a)) {
+            $str = $prepender.implode(' '.$prepender, $a);
+        }
+
+        return trim($str);
     }
 
     /**
