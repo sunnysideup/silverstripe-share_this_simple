@@ -127,6 +127,7 @@ class ShareThisSimpleProvider extends ViewableData
     /**
      * Generate a URL to share this content on Facebook.
      * @param string $customDescription   e.g. foo bar cool stuff
+     * https://www.facebook.com/dialog/feed?&link=URL_HERE&picture=IMAGE_LINK_HERE&name=TITLE_HERE&caption=%20&description=DESCRIPTION_HERE&redirect_uri=http%3A%2F%2Fwww.facebook.com%2F
      * @return string|false
      */
     public function getFacebookShareLink($customDescription = '')
@@ -159,7 +160,7 @@ class ShareThisSimpleProvider extends ViewableData
     {
         extract($this->getShareThisArray($customDescription));
 
-        return ($pageURL) ? "https://twitter.com/intent/tweet?source=$pageURL&text=$desc.': '.$pageURL" : false;
+        return ($pageURL) ? "https://twitter.com/intent/tweet?source=$pageURL&text=$titleFull".urlencode(': ').$pageURL : false;
     }
 
     /**
@@ -286,6 +287,8 @@ class ShareThisSimpleProvider extends ViewableData
         return ($pageURL) ? "http://reddit.com/submit?url=$pageURL&title=$title" : false;
     }
 
+    private static $_cacheGetShareThisArray = [];
+
     /**
      * @param string $customDescription   e.g. foo bar cool stuff
      *
@@ -293,77 +296,81 @@ class ShareThisSimpleProvider extends ViewableData
      */
     private function getShareThisArray($customDescription = '')
     {
-        //1. link
-        $linkMethod = $this->linkMethod;
-        if ($this->object->hasMethod($linkMethod)) {
-            $link = $this->object->$linkMethod();
-        }
+        if(! isset(self::$_cacheGetShareThisArray[$this->object->ID])) {
+            //1. link
+            $linkMethod = $this->linkMethod;
+            if ($this->object->hasMethod($linkMethod)) {
+                $link = $this->object->$linkMethod();
+            }
 
-        //2. title
-        $titleMethod = $this->titleMethod;
-        if ($this->object->hasMethod($titleMethod)) {
-            $title = $this->object->$titleMethod();
-        } elseif (isset($this->object->$titleMethod)) {
-            $title = $this->object->$titleMethod;
-        }
+            //2. title
+            $titleMethod = $this->titleMethod;
+            if ($this->object->hasMethod($titleMethod)) {
+                $title = $this->object->$titleMethod();
+            } elseif (isset($this->object->$titleMethod)) {
+                $title = $this->object->$titleMethod;
+            }
 
-        //3. media field
-        $media = "";
-        if ($this->imageMethods) {
-            $imageMethods = $this->imageMethods;
-        } else {
-            $imageMethods = Config::inst()->get("ShareThisSimpleProvider", "image_methods");
-        }
-        if (is_array($imageMethods) && count($imageMethods)) {
-            foreach ($imageMethods as $imageMethod) {
-                if ($this->object->hasMethod($imageMethod)) {
-                    $imageField = $imageMethod."ID";
-                    if ($this->$imageField) {
-                        $image = $this->object->$imageMethod();
-                        if ($image && $image->exists()) {
-                            $media = $image->AbsoluteLink();
-                            break;
+            //3. media field
+            $media = "";
+            if ($this->imageMethods) {
+                $imageMethods = $this->imageMethods;
+            } else {
+                $imageMethods = Config::inst()->get("ShareThisSimpleProvider", "image_methods");
+            }
+            if (is_array($imageMethods) && count($imageMethods)) {
+                foreach ($imageMethods as $imageMethod) {
+                    if ($this->object->hasMethod($imageMethod)) {
+                        $imageField = $imageMethod."ID";
+                        if ($this->$imageField) {
+                            $image = $this->object->$imageMethod();
+                            if ($image && $image->exists()) {
+                                $media = $image->AbsoluteLink();
+                                break;
+                            }
                         }
                     }
                 }
             }
-        }
 
-        //description
-        if ($customDescription) {
-            $description = $customDescription;
-        } else {
-            $description = "";
-            if ($descriptionMethod = $this->descriptionMethod) {
-                //do nothing
+            //description
+            if ($customDescription) {
+                $description = $customDescription;
             } else {
-                $descriptionMethod = Config::inst()->get("ShareThisSimpleProvider", "description_method");
-            }
-            if ($descriptionMethod) {
-                if ($this->object->hasMethod($descriptionMethod)) {
-                    $description = $this->object->$descriptionMethod();
-                } elseif (isset($this->object->$descriptionMethod)) {
-                    $description = $this->object->$descriptionMethod;
+                $description = "";
+                if ($descriptionMethod = $this->descriptionMethod) {
+                    //do nothing
+                } else {
+                    $descriptionMethod = Config::inst()->get("ShareThisSimpleProvider", "description_method");
+                }
+                if ($descriptionMethod) {
+                    if ($this->object->hasMethod($descriptionMethod)) {
+                        $description = $this->object->$descriptionMethod();
+                    } elseif (isset($this->object->$descriptionMethod)) {
+                        $description = $this->object->$descriptionMethod;
+                    }
                 }
             }
+
+            $hashTags = $this->getValuesFromArrayToString('hashTags', 'hash_tags', '#');
+            $mentions = $this->getValuesFromArrayToString('mentions', 'mentions', '@');
+            $vias = $this->getValuesFromArrayToString('vias', 'vias', '@');
+
+            //return ...
+            self::$_cacheGetShareThisArray[$this->object->ID] = array(
+                "pageURL" => rawurlencode($link),
+                "title" => rawurlencode($title),
+                "titleFull" => rawurlencode(trim($mentions.' '.$title.' '.$hashTags.' '.$vias)),
+                "media" => rawurlencode($media),
+                "description" => rawurlencode($description),
+                "descriptionFull" => rawurlencode(trim($mentions.' '.$description.' '.$hashTags.' '.$vias)),
+                "hashTags" => rawurlencode($mentions),
+                "mentions" => rawurlencode($mentions),
+                "vias" => rawurlencode($vias)
+            );
         }
 
-        $hashTags = $this->getValuesFromArrayToString('hashTags', 'hash_tags', '#');
-        $mentions = $this->getValuesFromArrayToString('mentions', 'mentions', '@');
-        $vias = $this->getValuesFromArrayToString('vias', 'vias', '@');
-
-        //return ...
-        return array(
-            "pageURL" => rawurlencode($link),
-            "title" => rawurlencode($title),
-            "titleFull" => rawurlencode(trim($mentions.' '.$title.' '.$hasTags.' '.$via)),
-            "media" => rawurlencode($media),
-            "description" => rawurlencode($description),
-            "descriptionFull" => rawurlencode(trim($mentions.' '.$description.' '.$hasTags.' '.$via)),
-            "hashTags" => rawurlencode($mentions),
-            "mentions" => rawurlencode($mentions),
-            "vias" => rawurlencode($vias)
-        );
+        return self::$_cacheGetShareThisArray[$this->object->ID];
     }
 
     protected function getValuesFromArrayToString($variable, $staticVariable, $prepender = '@')
@@ -371,10 +378,10 @@ class ShareThisSimpleProvider extends ViewableData
         if(count($this->$variable)) {
             $a = $this->$variable;
         } else {
-            $a = $this->Config()->get($variable);
+            $a = $this->Config()->get($staticVariable);
         }
         $str = '';
-        if(count($a)) {
+        if(is_array($a) && count($a)) {
             $str = $prepender.implode(' '.$prepender, $a);
         }
 
