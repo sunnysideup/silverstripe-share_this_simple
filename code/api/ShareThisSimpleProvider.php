@@ -2,7 +2,11 @@
 
 class ShareThisSimpleProvider extends ViewableData
 {
-    private static $description_method = "";
+    private static $description_method = '';
+
+    private static $default_twitter_handle = '';
+
+    private static $default_hash_tags = [];
 
     private static $image_methods = array();
 
@@ -57,6 +61,20 @@ class ShareThisSimpleProvider extends ViewableData
     public function setDescriptionMethod($s)
     {
         $this->descriptionMethod = $s;
+    }
+
+    protected $hasTags = [];
+
+    public function setHashTags($a)
+    {
+        $this->hasTags = $a;
+    }
+
+    protected $twitterHandle = '';
+
+    public function setTwitterHandle($s)
+    {
+        $this->twitterHandle = $s;
     }
 
     /**
@@ -124,6 +142,7 @@ class ShareThisSimpleProvider extends ViewableData
     /**
      * Generate a URL to share this content on Twitter
      * Specs: https://dev.twitter.com/web/tweet-button/web-intent.
+     * example: https://twitter.com/intent/tweet?source=http%3A%2F%2Fsunnysideup.co.nz&text=test:%20http%3A%2F%2Fsunnysideup.co.nz&via=matteo
      * @param string $customDescription   e.g. foo bar cool stuff
      * @return string|false
      */
@@ -319,12 +338,17 @@ class ShareThisSimpleProvider extends ViewableData
                 }
             }
         }
+
+        if($this->Config()->get('default_twitter_handle'))
+
+        $hashTags = '#'.implode(' #', $this->hasTags);
         //return ...
         return array(
             "pageURL" => rawurlencode($link),
             "title" => rawurlencode($title),
             "media" => rawurlencode($media),
-            "description" => rawurlencode($description)
+            "description" => rawurlencode($description.$hasTags.$mentions),
+            "twitterHandle" => rawurlencode($this->menti)
         );
     }
 
