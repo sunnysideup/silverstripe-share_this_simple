@@ -10,7 +10,7 @@ class ShareThisSimpleProvider extends ViewableData
 
     private static $default_hash_tags = [];
 
-    private static $image_methods = array();
+    private static $image_methods = [];
 
     private static $casting = array(
         "FacebookShareLink" => "Varchar",
@@ -51,7 +51,7 @@ class ShareThisSimpleProvider extends ViewableData
         $this->titleMethod = $s;
     }
 
-    protected $imageMethods = array();
+    protected $imageMethods = [];
 
     public function setImageMethods($a)
     {
@@ -96,12 +96,39 @@ class ShareThisSimpleProvider extends ViewableData
         $arrayList = ArrayList::create();
         $options = array_keys($this->stat('casting'));
         foreach ($options as $option) {
+
+/**
+  * ### @@@@ START REPLACEMENT @@@@ ###
+  * WHY: upgrade to SS4
+  * OLD: $className (case sensitive)
+  * NEW: $className (COMPLEX)
+  * EXP: Check if the class name can still be used as such
+  * ### @@@@ STOP REPLACEMENT @@@@ ###
+  */
             $className  = str_replace('ShareLink', '', $option);
+
+/**
+  * ### @@@@ START REPLACEMENT @@@@ ###
+  * WHY: upgrade to SS4
+  * OLD: $className (case sensitive)
+  * NEW: $className (COMPLEX)
+  * EXP: Check if the class name can still be used as such
+  * ### @@@@ STOP REPLACEMENT @@@@ ###
+  */
             $className  = strtolower($className);
             $method = "get".$option;
             $arrayList->push(
                 ArrayData::create(
                     array(
+
+/**
+  * ### @@@@ START REPLACEMENT @@@@ ###
+  * WHY: upgrade to SS4
+  * OLD: $className (case sensitive)
+  * NEW: $className (COMPLEX)
+  * EXP: Check if the class name can still be used as such
+  * ### @@@@ STOP REPLACEMENT @@@@ ###
+  */
                         'Class' => $className,
                         'Link' => $this->$method($customDescription)
                     )
