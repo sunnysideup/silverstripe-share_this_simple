@@ -122,3 +122,12 @@ Warnings for tests/ShareThisSimpleTest.php:
  - tests/ShareThisSimpleTest.php:9 SilverStripe\Dev\SapphireTest->requiredExtensions: Renamed to required_extensions
 Writing changes for 1 files
 ✔✔✔
+# running php upgrade inspect see: https://github.com/silverstripe/silverstripe-upgrader
+cd /var/www/upgrades/upgradeto4
+php /var/www/upgrader/vendor/silverstripe/upgrader/bin/upgrade-code inspect /var/www/upgrades/upgradeto4/share_this_simple  --root-dir=/var/www/upgrades/upgradeto4 --write -vvv
+Array
+(
+    [0] => Running post-upgrade on "/var/www/upgrades/upgradeto4/share_this_simple"
+    [1] => [2019-06-18 12:02:11] Applying ApiChangeWarningsRule to ShareThisSimpleTest.php...
+    [2] => PHP Fatal error:  Cannot redeclare static SilverStripe\Dev\SapphireTest::$required_extensions as non static ShareThisSimpleTest::$required_extensions in /var/www/upgrades/upgradeto4/share_this_simple/tests/ShareThisSimpleTest.php on line 17
+)
