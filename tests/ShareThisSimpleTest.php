@@ -6,8 +6,6 @@ class ShareThisSimpleTest extends SapphireTest
 {
     protected $usesDatabase = false;
 
-    protected $required_extensions = [];
-
     public function TestDevBuild()
     {
         $exitStatus = shell_exec('php framework/cli-script.php dev/build flush=all  > dev/null; echo $?');
