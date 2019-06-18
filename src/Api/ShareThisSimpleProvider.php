@@ -1,5 +1,13 @@
 <?php
 
+namespace Sunnysideup\ShareThisSimple\Api;
+
+use SilverStripe\ORM\ArrayList;
+use SilverStripe\View\ArrayData;
+use SilverStripe\Core\Config\Config;
+use Sunnysideup\ShareThisSimple\Api\ShareThisSimpleProvider;
+use SilverStripe\View\ViewableData;
+
 class ShareThisSimpleProvider extends ViewableData
 {
     private static $description_method = '';
@@ -10,7 +18,7 @@ class ShareThisSimpleProvider extends ViewableData
 
     private static $default_hash_tags = [];
 
-    private static $image_methods = array();
+    private static $image_methods = [];
 
     private static $casting = array(
         "FacebookShareLink" => "Varchar",
@@ -51,7 +59,7 @@ class ShareThisSimpleProvider extends ViewableData
         $this->titleMethod = $s;
     }
 
-    protected $imageMethods = array();
+    protected $imageMethods = [];
 
     public function setImageMethods($a)
     {
@@ -96,12 +104,39 @@ class ShareThisSimpleProvider extends ViewableData
         $arrayList = ArrayList::create();
         $options = array_keys($this->stat('casting'));
         foreach ($options as $option) {
+
+/**
+  * ### @@@@ START REPLACEMENT @@@@ ###
+  * WHY: upgrade to SS4
+  * OLD: $className (case sensitive)
+  * NEW: $className (COMPLEX)
+  * EXP: Check if the class name can still be used as such
+  * ### @@@@ STOP REPLACEMENT @@@@ ###
+  */
             $className  = str_replace('ShareLink', '', $option);
+
+            /**
+              * ### @@@@ START REPLACEMENT @@@@ ###
+              * WHY: upgrade to SS4
+              * OLD: $className (case sensitive)
+              * NEW: $className (COMPLEX)
+              * EXP: Check if the class name can still be used as such
+              * ### @@@@ STOP REPLACEMENT @@@@ ###
+              */
             $className  = strtolower($className);
             $method = "get".$option;
             $arrayList->push(
                 ArrayData::create(
                     array(
+
+/**
+  * ### @@@@ START REPLACEMENT @@@@ ###
+  * WHY: upgrade to SS4
+  * OLD: $className (case sensitive)
+  * NEW: $className (COMPLEX)
+  * EXP: Check if the class name can still be used as such
+  * ### @@@@ STOP REPLACEMENT @@@@ ###
+  */
                         'Class' => $className,
                         'Link' => $this->$method($customDescription)
                     )
@@ -296,7 +331,7 @@ class ShareThisSimpleProvider extends ViewableData
      */
     private function getShareThisArray($customDescription = '')
     {
-        if(! isset(self::$_cacheGetShareThisArray[$this->object->ID])) {
+        if (! isset(self::$_cacheGetShareThisArray[$this->object->ID])) {
             //1. link
             $linkMethod = $this->linkMethod;
             if ($this->object->hasMethod($linkMethod)) {
@@ -316,7 +351,7 @@ class ShareThisSimpleProvider extends ViewableData
             if ($this->imageMethods) {
                 $imageMethods = $this->imageMethods;
             } else {
-                $imageMethods = Config::inst()->get("ShareThisSimpleProvider", "image_methods");
+                $imageMethods = Config::inst()->get(ShareThisSimpleProvider::class, "image_methods");
             }
             if (is_array($imageMethods) && count($imageMethods)) {
                 foreach ($imageMethods as $imageMethod) {
@@ -341,7 +376,7 @@ class ShareThisSimpleProvider extends ViewableData
                 if ($descriptionMethod = $this->descriptionMethod) {
                     //do nothing
                 } else {
-                    $descriptionMethod = Config::inst()->get("ShareThisSimpleProvider", "description_method");
+                    $descriptionMethod = Config::inst()->get(ShareThisSimpleProvider::class, "description_method");
                 }
                 if ($descriptionMethod) {
                     if ($this->object->hasMethod($descriptionMethod)) {
@@ -375,13 +410,13 @@ class ShareThisSimpleProvider extends ViewableData
 
     protected function getValuesFromArrayToString($variable, $staticVariable, $prepender = '@')
     {
-        if(count($this->$variable)) {
+        if (count($this->$variable)) {
             $a = $this->$variable;
         } else {
             $a = $this->Config()->get($staticVariable);
         }
         $str = '';
-        if(is_array($a) && count($a)) {
+        if (is_array($a) && count($a)) {
             $str = $prepender.implode(' '.$prepender, $a);
         }
 

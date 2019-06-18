@@ -1,6 +1,6 @@
 {
     "name": "sunnysideup/share_this_simple",
-    "type": "silverstripe-module",
+    "type": "silverstripe-vendormodule",
     "description": "Silverstripe Module that provides a simple way to add share this links to your website.",
     "keywords": [
         "Silverstripe-CMS",
@@ -23,10 +23,16 @@
         }
     ],
     "require": {
-        "silverstripe/framework": "~3.6",
-        "silverstripe/cms": "~3.6"
+        "silverstripe/recipe-cms": "^4.4"
     },
     "extra": {
-        "installer-name": "share_this_simple"
+        "expose": [
+            "client/javascript"
+        ]
+    },
+    "autoload": {
+        "psr-4": {
+            "Sunnysideup\\ShareThisSimple\\": "src/"
+        }
     }
 }

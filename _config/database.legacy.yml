@@ -1,0 +1,4 @@
+SilverStripe\ORM\DatabaseAdmin:
+  classname_value_remapping:
+    ShareThisSimpleProvider: Sunnysideup\ShareThisSimple\Api\ShareThisSimpleProvider
+    ShareThisSimpleExtension: Sunnysideup\ShareThisSimple\Model\ShareThisSimpleExtension

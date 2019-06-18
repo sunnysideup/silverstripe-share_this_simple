@@ -1,10 +1,10 @@
 <?php
 
+use SilverStripe\Dev\SapphireTest;
+
 class ShareThisSimpleTest extends SapphireTest
 {
     protected $usesDatabase = false;
-
-    protected $requiredExtensions = array();
 
     public function TestDevBuild()
     {
