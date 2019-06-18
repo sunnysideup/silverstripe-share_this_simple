@@ -2,13 +2,8 @@
 
 namespace Sunnysideup\ShareThisSimple\Model;
 
-
-
 use Sunnysideup\ShareThisSimple\Api\ShareThisSimpleProvider;
 use SilverStripe\ORM\DataExtension;
-
-
-
 
 /**
   * ### @@@@ START REPLACEMENT @@@@ ###

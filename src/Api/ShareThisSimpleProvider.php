@@ -2,17 +2,11 @@
 
 namespace Sunnysideup\ShareThisSimple\Api;
 
-
-
-
-
 use SilverStripe\ORM\ArrayList;
 use SilverStripe\View\ArrayData;
 use SilverStripe\Core\Config\Config;
 use Sunnysideup\ShareThisSimple\Api\ShareThisSimpleProvider;
 use SilverStripe\View\ViewableData;
-
-
 
 class ShareThisSimpleProvider extends ViewableData
 {
@@ -121,14 +115,14 @@ class ShareThisSimpleProvider extends ViewableData
   */
             $className  = str_replace('ShareLink', '', $option);
 
-/**
-  * ### @@@@ START REPLACEMENT @@@@ ###
-  * WHY: upgrade to SS4
-  * OLD: $className (case sensitive)
-  * NEW: $className (COMPLEX)
-  * EXP: Check if the class name can still be used as such
-  * ### @@@@ STOP REPLACEMENT @@@@ ###
-  */
+            /**
+              * ### @@@@ START REPLACEMENT @@@@ ###
+              * WHY: upgrade to SS4
+              * OLD: $className (case sensitive)
+              * NEW: $className (COMPLEX)
+              * EXP: Check if the class name can still be used as such
+              * ### @@@@ STOP REPLACEMENT @@@@ ###
+              */
             $className  = strtolower($className);
             $method = "get".$option;
             $arrayList->push(
@@ -337,7 +331,7 @@ class ShareThisSimpleProvider extends ViewableData
      */
     private function getShareThisArray($customDescription = '')
     {
-        if(! isset(self::$_cacheGetShareThisArray[$this->object->ID])) {
+        if (! isset(self::$_cacheGetShareThisArray[$this->object->ID])) {
             //1. link
             $linkMethod = $this->linkMethod;
             if ($this->object->hasMethod($linkMethod)) {
@@ -416,13 +410,13 @@ class ShareThisSimpleProvider extends ViewableData
 
     protected function getValuesFromArrayToString($variable, $staticVariable, $prepender = '@')
     {
-        if(count($this->$variable)) {
+        if (count($this->$variable)) {
             $a = $this->$variable;
         } else {
             $a = $this->Config()->get($staticVariable);
         }
         $str = '';
-        if(is_array($a) && count($a)) {
+        if (is_array($a) && count($a)) {
             $str = $prepender.implode(' '.$prepender, $a);
         }
 
