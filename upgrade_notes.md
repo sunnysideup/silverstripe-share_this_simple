@@ -94,3 +94,31 @@ modified:	src/Model/ShareThisSimpleExtension.php
 
 Writing changes for 4 files
 ✔✔✔
+# running php upgrade inspect see: https://github.com/silverstripe/silverstripe-upgrader
+cd /var/www/upgrades/upgradeto4
+php /var/www/upgrader/vendor/silverstripe/upgrader/bin/upgrade-code inspect /var/www/upgrades/upgradeto4/share_this_simple  --root-dir=/var/www/upgrades/upgradeto4 --write -vvv
+Writing changes for 1 files
+Running post-upgrade on "/var/www/upgrades/upgradeto4/share_this_simple"
+[2019-06-18 12:01:50] Applying ApiChangeWarningsRule to ShareThisSimpleTest.php...
+[2019-06-18 12:01:50] Applying UpdateVisibilityRule to ShareThisSimpleTest.php...
+[2019-06-18 12:01:50] Applying ApiChangeWarningsRule to ShareThisSimpleProvider.php...
+[2019-06-18 12:01:50] Applying UpdateVisibilityRule to ShareThisSimpleProvider.php...
+[2019-06-18 12:01:50] Applying ApiChangeWarningsRule to ShareThisSimpleExtension.php...
+[2019-06-18 12:01:50] Applying UpdateVisibilityRule to ShareThisSimpleExtension.php...
+[2019-06-18 12:01:50] Applying ApiChangeWarningsRule to _config.php...
+[2019-06-18 12:01:50] Applying UpdateVisibilityRule to _config.php...
+modified:	tests/ShareThisSimpleTest.php
+@@ -6,7 +6,7 @@
+ {
+     protected $usesDatabase = false;
+
+-    protected $requiredExtensions = [];
++    protected $required_extensions = [];
+
+     public function TestDevBuild()
+     {
+
+Warnings for tests/ShareThisSimpleTest.php:
+ - tests/ShareThisSimpleTest.php:9 SilverStripe\Dev\SapphireTest->requiredExtensions: Renamed to required_extensions
+Writing changes for 1 files
+✔✔✔
