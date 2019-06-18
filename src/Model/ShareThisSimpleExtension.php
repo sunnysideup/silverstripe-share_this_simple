@@ -1,5 +1,11 @@
 <?php
 
+namespace Sunnysideup\ShareThisSimple\Model;
+
+use DataExtension;
+use ShareThisSimpleProvider;
+
+
 
 /**
   * ### @@@@ START REPLACEMENT @@@@ ###

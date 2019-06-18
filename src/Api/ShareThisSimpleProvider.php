@@ -1,5 +1,13 @@
 <?php
 
+namespace Sunnysideup\ShareThisSimple\Api;
+
+use ViewableData;
+use ArrayList;
+use ArrayData;
+use Config;
+
+
 class ShareThisSimpleProvider extends ViewableData
 {
     private static $description_method = '';

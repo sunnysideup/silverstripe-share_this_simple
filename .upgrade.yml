@@ -1,0 +1,3 @@
+mappings:
+  ShareThisSimpleProvider: Sunnysideup\ShareThisSimple\Api\ShareThisSimpleProvider
+  ShareThisSimpleExtension: Sunnysideup\ShareThisSimple\Model\ShareThisSimpleExtension
