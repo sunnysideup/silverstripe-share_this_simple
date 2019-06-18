@@ -2,10 +2,16 @@
 
 namespace Sunnysideup\ShareThisSimple\Api;
 
-use ViewableData;
-use ArrayList;
-use ArrayData;
-use Config;
+
+
+
+
+use SilverStripe\ORM\ArrayList;
+use SilverStripe\View\ArrayData;
+use SilverStripe\Core\Config\Config;
+use Sunnysideup\ShareThisSimple\Api\ShareThisSimpleProvider;
+use SilverStripe\View\ViewableData;
+
 
 
 class ShareThisSimpleProvider extends ViewableData
@@ -351,7 +357,7 @@ class ShareThisSimpleProvider extends ViewableData
             if ($this->imageMethods) {
                 $imageMethods = $this->imageMethods;
             } else {
-                $imageMethods = Config::inst()->get("ShareThisSimpleProvider", "image_methods");
+                $imageMethods = Config::inst()->get(ShareThisSimpleProvider::class, "image_methods");
             }
             if (is_array($imageMethods) && count($imageMethods)) {
                 foreach ($imageMethods as $imageMethod) {
@@ -376,7 +382,7 @@ class ShareThisSimpleProvider extends ViewableData
                 if ($descriptionMethod = $this->descriptionMethod) {
                     //do nothing
                 } else {
-                    $descriptionMethod = Config::inst()->get("ShareThisSimpleProvider", "description_method");
+                    $descriptionMethod = Config::inst()->get(ShareThisSimpleProvider::class, "description_method");
                 }
                 if ($descriptionMethod) {
                     if ($this->object->hasMethod($descriptionMethod)) {

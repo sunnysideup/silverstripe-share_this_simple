@@ -2,8 +2,11 @@
 
 namespace Sunnysideup\ShareThisSimple\Model;
 
-use DataExtension;
-use ShareThisSimpleProvider;
+
+
+use Sunnysideup\ShareThisSimple\Api\ShareThisSimpleProvider;
+use SilverStripe\ORM\DataExtension;
+
 
 
 

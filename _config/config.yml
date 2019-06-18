@@ -1,7 +1,6 @@
 ---
 Name: share_this_simple
 ---
-
 SilverStripe\CMS\Model\SiteTree:
   extensions:
-    - ShareThisSimpleExtension
+    - Sunnysideup\ShareThisSimple\Model\ShareThisSimpleExtension
