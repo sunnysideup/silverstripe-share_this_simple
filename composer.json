@@ -25,7 +25,11 @@
     "require": {
         "silverstripe/recipe-cms": "^4.4"
     },
-    "extra": [],
+    "extra": {
+        "expose": [
+            "client/javascript"
+        ]
+    },
     "autoload": {
         "psr-4": {
             "Sunnysideup\\ShareThisSimple\\": "src/"
