@@ -1,14 +1,14 @@
 <?php
 
-namespace Sunnysideup\ShareThisSimple\Api;
+namespace  Education\DandI\ViewableData;
 
 use SilverStripe\ORM\ArrayList;
+use SilverStripe\ORM\DataObject;
 use SilverStripe\View\ArrayData;
-use SilverStripe\Core\Config\Config;
-use Sunnysideup\ShareThisSimple\Api\ShareThisSimpleProvider;
 use SilverStripe\View\ViewableData;
+use SilverStripe\Core\Config\Config;
 
-class ShareThisSimpleProvider extends ViewableData
+class ShareThisProvider extends ViewableData
 {
     private static $description_method = '';
 
@@ -18,17 +18,12 @@ class ShareThisSimpleProvider extends ViewableData
 
     private static $default_hash_tags = [];
 
-    private static $image_methods = [];
+    private static $image_methods = array();
 
     private static $casting = array(
         "FacebookShareLink" => "Varchar",
         "TwitterShareLink" => "Varchar",
-        "GooglePlusShareLink" => "Varchar",
-        "TumblrShareLink" => "Varchar",
-        "PinterestShareLink" => "Varchar",
-        "EmailShareLink" => "Varchar",
-        "RedditShareLink" => "Varchar",
-        "PinterestLinkForSpecificImage" => "Varchar"
+        "LinkedInShareLink" => "Varchar",
     );
 
 
@@ -59,14 +54,14 @@ class ShareThisSimpleProvider extends ViewableData
         $this->titleMethod = $s;
     }
 
-    protected $imageMethods = [];
+    protected $imageMethods = array();
 
     public function setImageMethods($a)
     {
         $this->imageMethods = $a;
     }
 
-    protected $descriptionMethod = '';
+    protected $descriptionMethod = 'SocialMediaDescription';
 
     public function setDescriptionMethod($s)
     {
@@ -99,44 +94,17 @@ class ShareThisSimpleProvider extends ViewableData
      * @param string $customDescription   e.g. foo bar cool stuff
      * @return ArrayList
      */
-    public function ShareThisLinks($customDescription= '')
+    public function ShareThisLinks($customDescription = '')
     {
         $arrayList = ArrayList::create();
-        $options = array_keys($this->stat('casting'));
+        $options = array_keys($this->config()->get('casting'));
         foreach ($options as $option) {
-
-/**
-  * ### @@@@ START REPLACEMENT @@@@ ###
-  * WHY: upgrade to SS4
-  * OLD: $className (case sensitive)
-  * NEW: $className (COMPLEX)
-  * EXP: Check if the class name can still be used as such
-  * ### @@@@ STOP REPLACEMENT @@@@ ###
-  */
             $className  = str_replace('ShareLink', '', $option);
-
-            /**
-              * ### @@@@ START REPLACEMENT @@@@ ###
-              * WHY: upgrade to SS4
-              * OLD: $className (case sensitive)
-              * NEW: $className (COMPLEX)
-              * EXP: Check if the class name can still be used as such
-              * ### @@@@ STOP REPLACEMENT @@@@ ###
-              */
             $className  = strtolower($className);
             $method = "get".$option;
             $arrayList->push(
                 ArrayData::create(
                     array(
-
-/**
-  * ### @@@@ START REPLACEMENT @@@@ ###
-  * WHY: upgrade to SS4
-  * OLD: $className (case sensitive)
-  * NEW: $className (COMPLEX)
-  * EXP: Check if the class name can still be used as such
-  * ### @@@@ STOP REPLACEMENT @@@@ ###
-  */
                         'Class' => $className,
                         'Link' => $this->$method($customDescription)
                     )
@@ -162,14 +130,21 @@ class ShareThisSimpleProvider extends ViewableData
     /**
      * Generate a URL to share this content on Facebook.
      * @param string $customDescription   e.g. foo bar cool stuff
-     * https://www.facebook.com/dialog/feed?&link=URL_HERE&picture=IMAGE_LINK_HERE&name=TITLE_HERE&caption=%20&description=DESCRIPTION_HERE&redirect_uri=http%3A%2F%2Fwww.facebook.com%2F
+     * https://www.facebook.com/dialog/feed?
+     * &link=URL_HERE&picture=IMAGE_LINK_HERE&name=TITLE_HERE&caption=%20
+     * &description=DESCRIPTION_HERE
+     * &redirect_uri=http%3A%2F%2Fwww.facebook.com%2F
      * @return string|false
      */
     public function getFacebookShareLink($customDescription = '')
     {
         extract($this->getShareThisArray($customDescription));
 
-        return ($pageURL) ? "https://www.facebook.com/sharer/sharer.php?u=$pageURL&t=$title" : false;
+        return ($pageURL) ?
+            "https://www.facebook.com/sharer/sharer.php?"
+            ."u=$pageURL&t=$title"
+        :
+            false;
     }
 
     /**
@@ -187,7 +162,9 @@ class ShareThisSimpleProvider extends ViewableData
     /**
      * Generate a URL to share this content on Twitter
      * Specs: https://dev.twitter.com/web/tweet-button/web-intent.
-     * example: https://twitter.com/intent/tweet?source=http%3A%2F%2Fsunnysideup.co.nz&text=test:%20http%3A%2F%2Fsunnysideup.co.nz&via=matteo
+     * example: https://twitter.com/intent/tweet
+     * ?source=http%3A%2F%2Fsunnysideup.co.nz
+     * &text=test:%20http%3A%2F%2Fsunnysideup.co.nz&via=matteo
      * @param string $customDescription   e.g. foo bar cool stuff
      * @return string|false
      */
@@ -195,7 +172,11 @@ class ShareThisSimpleProvider extends ViewableData
     {
         extract($this->getShareThisArray($customDescription));
 
-        return ($pageURL) ? "https://twitter.com/intent/tweet?source=$pageURL&text=$titleFull".urlencode(': ').$pageURL : false;
+        return ($pageURL) ?
+            "https://twitter.com/intent/tweet?source=".
+            "$pageURL&text=$titleFull".urlencode(': ').$pageURL
+        :
+            false;
     }
 
     /**
@@ -205,124 +186,31 @@ class ShareThisSimpleProvider extends ViewableData
      * @param string $customDescription   e.g. foo bar cool stuff
      * @return string|false
      */
-    public function GooglePlusShareLink($customDescription = '')
+    public function LinkedInShareLink($customDescription = '')
     {
-        return $this->getGooglePlusShareLink($customDescription);
+        return $this->getLinkedInShareLink($customDescription);
     }
 
     /**
      * Generate a URL to share this content on Twitter
-     * Specs: https://dev.twitter.com/web/tweet-button/web-intent.
+     * Specs: ???
+     * example: https://www.linkedin.com/shareArticle?
+     * mini=true&url=http://www.cnn.com&title=&summary=chek this out&source=
      * @param string $customDescription   e.g. foo bar cool stuff
      * @return string|false
      */
-    public function getGooglePlusShareLink($customDescription = '')
+    public function getLinkedInShareLink($customDescription = '')
     {
         extract($this->getShareThisArray($customDescription));
 
-        return ($pageURL) ? "https://plus.google.com/share?url=$pageURL" : false;
+        return ($pageURL) ?
+            "https://www.linkedin.com/shareArticle".
+            "?mini=true&url=$pageURL&summary=$titleFull"
+        :
+            false;
     }
 
-    /**
-     * ALIAS
-     * Generate a URL to share this content on Twitter
-     * Specs: https://dev.twitter.com/web/tweet-button/web-intent.
-     * @param string $customDescription   e.g. foo bar cool stuff
-     * @return string|false
-     */
-    public function TumblrShareLink($customDescription = '')
-    {
-        return $this->getTumblrShareLink($customDescription);
-    }
-
-    /**
-     * Generate a URL to share this content on Twitter
-     * Specs: https://dev.twitter.com/web/tweet-button/web-intent.
-     * @param string $customDescription   e.g. foo bar cool stuff
-     * @return string|false
-     */
-    public function getTumblrShareLink($customDescription = '')
-    {
-        extract($this->getShareThisArray($customDescription));
-
-        return ($pageURL) ? "http://www.tumblr.com/share/link?url=$pageURL&name=$title&description=$description" : false;
-    }
-
-    /**
-     * ALIAS
-     * Generate a URL to share this content on Twitter
-     * Specs: https://dev.twitter.com/web/tweet-button/web-intent.
-     * @param string $customDescription   e.g. foo bar cool stuff
-     * @return string|false
-     */
-    public function PinterestShareLink($customDescription = '')
-    {
-        return $this->getPinterestShareLink($customDescription);
-    }
-
-    /**
-     * Generate a URL to share this content on Twitter
-     * Specs: https://dev.twitter.com/web/tweet-button/web-intent.
-     * @param string $customDescription   e.g. foo bar cool stuff
-     * @return string|false
-     */
-    public function getPinterestShareLink($customDescription = '')
-    {
-        extract($this->getShareThisArray($customDescription));
-
-        return ($pageURL) ? "http://pinterest.com/pin/create/button/?url=$pageURL&description=$description&media=$media" : false;
-    }
-
-    /**
-     * ALIAS
-     * Generate a 'mailto' URL to share this content via Email.
-     * @param string $customDescription   e.g. foo bar cool stuff
-     * @return string|false
-     */
-    public function EmailShareLink($customDescription = '')
-    {
-        return $this->getEmailShareLink($customDescription);
-    }
-
-    /**
-     * Generate a 'mailto' URL to share this content via Email.
-     * @param string $customDescription   e.g. foo bar cool stuff
-     * @return string|false
-     */
-    public function getEmailShareLink($customDescription = '')
-    {
-        extract($this->getShareThisArray($customDescription));
-
-        return ($pageURL) ? "mailto:?subject=$title&body=$pageURL" : false;
-    }
-
-
-    /**
-     * ALIAS
-     * Generate a URL to share this content on Twitter
-     * Specs: https://dev.twitter.com/web/tweet-button/web-intent.
-     * @param string $customDescription   e.g. foo bar cool stuff
-     * @return string|false
-     */
-    public function RedditShareLink($customDescription = '')
-    {
-        return $this->getRedditShareLink($customDescription);
-    }
-
-    /**
-     * Generate a URL to share this content on Twitter
-     * Specs: https://dev.twitter.com/web/tweet-button/web-intent.
-     * @param string $customDescription   e.g. foo bar cool stuff
-     * @return string|false
-     */
-    public function getRedditShareLink($customDescription = '')
-    {
-        extract($this->getShareThisArray($customDescription));
-
-        return ($pageURL) ? "http://reddit.com/submit?url=$pageURL&title=$title" : false;
-    }
-
-    private static $_cacheGetShareThisArray = [];
+    private static $cacheGetShareThisArray = [];
 
     /**
      * @param string $customDescription   e.g. foo bar cool stuff
@@ -331,86 +219,42 @@ class ShareThisSimpleProvider extends ViewableData
      */
     private function getShareThisArray($customDescription = '')
     {
-        if (! isset(self::$_cacheGetShareThisArray[$this->object->ID])) {
+        if (! isset(self::$cacheGetShareThisArray[$this->object->ID])) {
             //1. link
-            $linkMethod = $this->linkMethod;
-            if ($this->object->hasMethod($linkMethod)) {
-                $link = $this->object->$linkMethod();
-            }
+            $link = $this->shareThisLinkField();
 
-            //2. title
-            $titleMethod = $this->titleMethod;
-            if ($this->object->hasMethod($titleMethod)) {
-                $title = $this->object->$titleMethod();
-            } elseif (isset($this->object->$titleMethod)) {
-                $title = $this->object->$titleMethod;
-            }
+            $title = $this->shareThisTitleField();
 
-            //3. media field
-            $media = "";
-            if ($this->imageMethods) {
-                $imageMethods = $this->imageMethods;
-            } else {
-                $imageMethods = Config::inst()->get(ShareThisSimpleProvider::class, "image_methods");
-            }
-            if (is_array($imageMethods) && count($imageMethods)) {
-                foreach ($imageMethods as $imageMethod) {
-                    if ($this->object->hasMethod($imageMethod)) {
-                        $imageField = $imageMethod."ID";
-                        if ($this->$imageField) {
-                            $image = $this->object->$imageMethod();
-                            if ($image && $image->exists()) {
-                                $media = $image->AbsoluteLink();
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
+            $media = $this->shareThisMediaField();
 
-            //description
-            if ($customDescription) {
-                $description = $customDescription;
-            } else {
-                $description = "";
-                if ($descriptionMethod = $this->descriptionMethod) {
-                    //do nothing
-                } else {
-                    $descriptionMethod = Config::inst()->get(ShareThisSimpleProvider::class, "description_method");
-                }
-                if ($descriptionMethod) {
-                    if ($this->object->hasMethod($descriptionMethod)) {
-                        $description = $this->object->$descriptionMethod();
-                    } elseif (isset($this->object->$descriptionMethod)) {
-                        $description = $this->object->$descriptionMethod;
-                    }
-                }
-            }
+            $description = $this->shareThisDescriptionField($customDescription);
 
             $hashTags = $this->getValuesFromArrayToString('hashTags', 'hash_tags', '#');
             $mentions = $this->getValuesFromArrayToString('mentions', 'mentions', '@');
             $vias = $this->getValuesFromArrayToString('vias', 'vias', '@');
+            $titleFull = trim($mentions.' '.$title.' '.$hashTags.' '.$vias);
+            $descriptionFull = trim($mentions.' '.$description.' '.$hashTags.' '.$vias);
 
             //return ...
-            self::$_cacheGetShareThisArray[$this->object->ID] = array(
+            self::$cacheGetShareThisArray[$this->object->ID] = array(
                 "pageURL" => rawurlencode($link),
                 "title" => rawurlencode($title),
-                "titleFull" => rawurlencode(trim($mentions.' '.$title.' '.$hashTags.' '.$vias)),
+                "titleFull" => rawurlencode($titleFull),
                 "media" => rawurlencode($media),
                 "description" => rawurlencode($description),
-                "descriptionFull" => rawurlencode(trim($mentions.' '.$description.' '.$hashTags.' '.$vias)),
+                "descriptionFull" => rawurlencode($descriptionFull),
                 "hashTags" => rawurlencode($mentions),
                 "mentions" => rawurlencode($mentions),
                 "vias" => rawurlencode($vias)
             );
         }
 
-        return self::$_cacheGetShareThisArray[$this->object->ID];
+        return self::$cacheGetShareThisArray[$this->object->ID];
     }
 
     protected function getValuesFromArrayToString($variable, $staticVariable, $prepender = '@')
     {
-        if (count($this->$variable)) {
+        if (count((array)$this->$variable)) {
             $a = $this->$variable;
         } else {
             $a = $this->Config()->get($staticVariable);
@@ -423,36 +267,85 @@ class ShareThisSimpleProvider extends ViewableData
         return trim($str);
     }
 
-    /**
-     *
-     *
-     * @param string $imageMethod   e.g. MyImage
-     * @param bool $useImageTitle  if set to false, it will use the page title as the image title
-     *
-     * @return string
-     */
-    public function PinterestLinkForSpecificImage($imageMethod, $useImageTitle = false)
+    private function shareThisLinkField()
     {
-        return $this->getPinterestLinkForSpecificImage(
-            $imageMethod,
-            $useImageTitle
-        );
+        $link = '';
+        $linkMethod = $this->linkMethod;
+        if ($this->object->hasMethod($linkMethod)) {
+            $link = $this->object->$linkMethod();
+        }
+
+        return $link;
     }
-    public function getPinterestLinkForSpecificImage($imageMethod, $useImageTitle = false)
+
+    private function shareThisTitleField() : string
     {
-        if ($this->object && $this->object->hasMethod($imageMethod)) {
-            $image = $this->object->$imageMethod();
-            if ($image && $image->exists()) {
-                if ($useImageTitle) {
-                    $imageTitle = $image->Title;
-                } else {
-                    $imageTitle = $this->object->Title;
+        $title = '';
+        $titleMethod = $this->titleMethod;
+        if ($this->object->hasMethod($titleMethod)) {
+            $title = $this->object->$titleMethod();
+        } elseif (isset($this->object->$titleMethod)) {
+            $title = $this->object->$titleMethod;
+        }
+
+        return $title;
+    }
+
+    private function shareThisMediaField() : string
+    {
+        $media = '';
+        $imageMethods = $this->imageMethods;
+        if (is_array($imageMethods) && count($imageMethods)) {
+            //do nothing
+        } else {
+            $imageMethods = Config::inst()->get(
+                "ShareThisSimpleProvider",
+                "image_methods"
+            );
+        }
+        if (is_array($imageMethods) && count($imageMethods)) {
+            foreach ($imageMethods as $imageMethod) {
+                if ($this->object->hasMethod($imageMethod)) {
+                    $imageField = $imageMethod."ID";
+                    if ($this->$imageField) {
+                        $image = $this->object->$imageMethod();
+                        if ($image && $image->exists()) {
+                            $media = $image->AbsoluteLink();
+                            break;
+                        }
+                    }
                 }
-                return 'http://pinterest.com/pin/create/button/'
-                    .'?url='.urlencode($this->object->AbsoluteLink()).'&amp;'
-                    .'description='.urlencode($imageTitle).'&amp;'
-                    .'media='.urlencode($image->AbsoluteLink());
             }
         }
+
+        return $media;
+    }
+
+
+    private function shareThisDescriptionField(string $customDescription) : string
+    {
+        $description = '';
+
+        if ($customDescription) {
+            $description = $customDescription;
+        } else {
+            $description = "";
+            if ($descriptionMethod = $this->descriptionMethod) {
+                //do nothing
+            } else {
+                $descriptionMethod = Config::inst()->get(
+                    "ShareThisSimpleProvider",
+                    "description_method"
+                );
+            }
+            if ($descriptionMethod) {
+                if ($this->object->hasMethod($descriptionMethod)) {
+                    $description = $this->object->$descriptionMethod();
+                } elseif (isset($this->object->$descriptionMethod)) {
+                    $description = $this->object->$descriptionMethod;
+                }
+            }
+        }
+        return (string)$description;
     }
 }
