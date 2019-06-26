@@ -432,7 +432,7 @@ class ShareThisSimpleProvider extends ViewableData
             $title = $this->object->$titleMethod;
         }
 
-        return $title;
+        return (string) $title;
     }
 
     private function shareThisMediaField() : string
