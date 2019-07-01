@@ -23,7 +23,6 @@ class ShareThisSimpleProvider extends ViewableData
     private static $casting = array(
         "FacebookShareLink" => "Varchar",
         "TwitterShareLink" => "Varchar",
-        "GooglePlusShareLink" => "Varchar",
         "TumblrShareLink" => "Varchar",
         "PinterestShareLink" => "Varchar",
         "EmailShareLink" => "Varchar",
@@ -104,39 +103,12 @@ class ShareThisSimpleProvider extends ViewableData
         $arrayList = ArrayList::create();
         $options = array_keys($this->config()->get('casting')); //$this->config()->get('casting') ???
         foreach ($options as $option) {
-
-/**
-  * ### @@@@ START REPLACEMENT @@@@ ###
-  * WHY: upgrade to SS4
-  * OLD: $className (case sensitive)
-  * NEW: $className (COMPLEX)
-  * EXP: Check if the class name can still be used as such
-  * ### @@@@ STOP REPLACEMENT @@@@ ###
-  */
             $className  = str_replace('ShareLink', '', $option);
-
-            /**
-              * ### @@@@ START REPLACEMENT @@@@ ###
-              * WHY: upgrade to SS4
-              * OLD: $className (case sensitive)
-              * NEW: $className (COMPLEX)
-              * EXP: Check if the class name can still be used as such
-              * ### @@@@ STOP REPLACEMENT @@@@ ###
-              */
             $className  = strtolower($className);
             $method = "get".$option;
             $arrayList->push(
                 ArrayData::create(
                     array(
-
-/**
-  * ### @@@@ START REPLACEMENT @@@@ ###
-  * WHY: upgrade to SS4
-  * OLD: $className (case sensitive)
-  * NEW: $className (COMPLEX)
-  * EXP: Check if the class name can still be used as such
-  * ### @@@@ STOP REPLACEMENT @@@@ ###
-  */
                         'Class' => $className,
                         'Link' => $this->$method($customDescription)
                     )
@@ -162,14 +134,23 @@ class ShareThisSimpleProvider extends ViewableData
     /**
      * Generate a URL to share this content on Facebook.
      * @param string $customDescription   e.g. foo bar cool stuff
-     * https://www.facebook.com/dialog/feed?&link=URL_HERE&picture=IMAGE_LINK_HERE&name=TITLE_HERE&caption=%20&description=DESCRIPTION_HERE&redirect_uri=http%3A%2F%2Fwww.facebook.com%2F
+     * https://www.facebook.com/dialog/feed?
+     *  &link=URL_HERE
+     *  &picture=IMAGE_LINK_HERE
+     *  &name=TITLE_HERE
+     *  &caption=%20
+     *  &description=DESCRIPTION_HERE
+     *  &redirect_uri=http%3A%2F%2Fwww.facebook.com%2F
      * @return string|false
      */
     public function getFacebookShareLink($customDescription = '')
     {
         extract($this->getShareThisArray($customDescription));
 
-        return ($pageURL) ? "https://www.facebook.com/sharer/sharer.php?u=$pageURL&t=$title" : false;
+        return ($pageURL) ?
+            "https://www.facebook.com/sharer/sharer.php?u=$pageURL&t=$title"
+            :
+            false;
     }
 
     /**
@@ -187,7 +168,10 @@ class ShareThisSimpleProvider extends ViewableData
     /**
      * Generate a URL to share this content on Twitter
      * Specs: https://dev.twitter.com/web/tweet-button/web-intent.
-     * example: https://twitter.com/intent/tweet?source=http%3A%2F%2Fsunnysideup.co.nz&text=test:%20http%3A%2F%2Fsunnysideup.co.nz&via=matteo
+     * example: https://twitter.com/intent/tweet?
+     *  &source=http%3A%2F%2Fsunnysideup.co.nz
+     *  &text=test:%20http%3A%2F%2Fsunnysideup.co.nz
+     *  &via=foobar
      * @param string $customDescription   e.g. foo bar cool stuff
      * @return string|false
      */
@@ -195,7 +179,10 @@ class ShareThisSimpleProvider extends ViewableData
     {
         extract($this->getShareThisArray($customDescription));
 
-        return ($pageURL) ? "https://twitter.com/intent/tweet?source=$pageURL&text=$titleFull".urlencode(': ').$pageURL : false;
+        return ($pageURL) ?
+            "https://twitter.com/intent/tweet?source=$pageURL&text=$titleFull".urlencode(': ').$pageURL
+            :
+            false;
     }
 
     /**
@@ -223,37 +210,11 @@ class ShareThisSimpleProvider extends ViewableData
        extract($this->getShareThisArray($customDescription));
 
        return ($pageURL) ?
-           "https://www.linkedin.com/shareArticle".
-           "?mini=true&url=$pageURL&summary=$titleFull"
-       :
+           "https://www.linkedin.com/shareArticle?mini=true&url=$pageURL&summary=$titleFull"
+           :
            false;
     }
 
-
-    /**
-     * ALIAS
-     * Generate a URL to share this content on Twitter
-     * Specs: https://dev.twitter.com/web/tweet-button/web-intent.
-     * @param string $customDescription   e.g. foo bar cool stuff
-     * @return string|false
-     */
-    public function GooglePlusShareLink($customDescription = '')
-    {
-        return $this->getGooglePlusShareLink($customDescription);
-    }
-
-    /**
-     * Generate a URL to share this content on Twitter
-     * Specs: https://dev.twitter.com/web/tweet-button/web-intent.
-     * @param string $customDescription   e.g. foo bar cool stuff
-     * @return string|false
-     */
-    public function getGooglePlusShareLink($customDescription = '')
-    {
-        extract($this->getShareThisArray($customDescription));
-
-        return ($pageURL) ? "https://plus.google.com/share?url=$pageURL" : false;
-    }
 
     /**
      * ALIAS
@@ -277,7 +238,10 @@ class ShareThisSimpleProvider extends ViewableData
     {
         extract($this->getShareThisArray($customDescription));
 
-        return ($pageURL) ? "http://www.tumblr.com/share/link?url=$pageURL&name=$title&description=$description" : false;
+        return ($pageURL) ?
+            "http://www.tumblr.com/share/link?url=$pageURL&name=$title&description=$description"
+            :
+            false;
     }
 
     /**
@@ -302,7 +266,10 @@ class ShareThisSimpleProvider extends ViewableData
     {
         extract($this->getShareThisArray($customDescription));
 
-        return ($pageURL) ? "http://pinterest.com/pin/create/button/?url=$pageURL&description=$description&media=$media" : false;
+        return ($pageURL) ?
+            "http://pinterest.com/pin/create/button/?url=$pageURL&description=$description&media=$media"
+            :
+            false;
     }
 
     /**
@@ -354,14 +321,14 @@ class ShareThisSimpleProvider extends ViewableData
         return ($pageURL) ? "http://reddit.com/submit?url=$pageURL&title=$title" : false;
     }
 
-    private static $cacheGetShareThisArray = [];
+    protected static $cacheGetShareThisArray = [];
 
     /**
      * @param string $customDescription   e.g. foo bar cool stuff
      *
      * @return array
      */
-    private function getShareThisArray($customDescription = '')
+    public function getShareThisArray($customDescription = '')
     {
         if (! isset(self::$cacheGetShareThisArray[$this->object->ID])) {
             //1. link
@@ -465,7 +432,7 @@ class ShareThisSimpleProvider extends ViewableData
             $title = $this->object->$titleMethod;
         }
 
-        return $title;
+        return (string) $title;
     }
 
     private function shareThisMediaField() : string
@@ -523,6 +490,7 @@ class ShareThisSimpleProvider extends ViewableData
                 }
             }
         }
+
         return (string)$description;
     }
 }
