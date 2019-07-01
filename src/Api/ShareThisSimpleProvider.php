@@ -354,7 +354,7 @@ class ShareThisSimpleProvider extends ViewableData
         return ($pageURL) ? "http://reddit.com/submit?url=$pageURL&title=$title" : false;
     }
 
-    private static $_cacheGetShareThisArray = [];
+    private static $cacheGetShareThisArray = [];
 
     /**
      * @param string $customDescription   e.g. foo bar cool stuff
