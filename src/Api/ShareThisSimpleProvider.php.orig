@@ -20,15 +20,15 @@ class ShareThisSimpleProvider extends ViewableData
 
     private static $image_methods = [];
 
-    private static $casting = [
+    private static $casting = array(
         "FacebookShareLink" => "Varchar",
         "TwitterShareLink" => "Varchar",
         "TumblrShareLink" => "Varchar",
         "PinterestShareLink" => "Varchar",
         "EmailShareLink" => "Varchar",
         "RedditShareLink" => "Varchar",
-        "PinterestLinkForSpecificImage" => "Varchar",
-    ];
+        "PinterestLinkForSpecificImage" => "Varchar"
+    );
 
 
     /**
@@ -108,10 +108,10 @@ class ShareThisSimpleProvider extends ViewableData
             $method = "get".$option;
             $arrayList->push(
                 ArrayData::create(
-                    [
+                    array(
                         'Class' => $className,
-                        'Link' => $this->$method($customDescription),
-                    ]
+                        'Link' => $this->$method($customDescription)
+                    )
                 )
             );
         }
@@ -347,7 +347,7 @@ class ShareThisSimpleProvider extends ViewableData
             $descriptionFull = trim($mentions.' '.$description.' '.$hashTags.' '.$vias);
 
             //return ...
-            self::$cacheGetShareThisArray[$this->object->ID] = [
+            self::$cacheGetShareThisArray[$this->object->ID] = array(
                 "pageURL" => rawurlencode($link),
                 "title" => rawurlencode($title),
                 "titleFull" => rawurlencode($titleFull),
@@ -356,8 +356,8 @@ class ShareThisSimpleProvider extends ViewableData
                 "descriptionFull" => rawurlencode($descriptionFull),
                 "hashTags" => rawurlencode($mentions),
                 "mentions" => rawurlencode($mentions),
-                "vias" => rawurlencode($vias),
-            ];
+                "vias" => rawurlencode($vias)
+            );
         }
 
         return self::$cacheGetShareThisArray[$this->object->ID];
@@ -365,7 +365,7 @@ class ShareThisSimpleProvider extends ViewableData
 
     protected function getValuesFromArrayToString($variable, $staticVariable, $prepender = '@')
     {
-        if (!empty($this->$variable)) {
+        if (count($this->$variable)) {
             $a = $this->$variable;
         } else {
             $a = $this->Config()->get($staticVariable);
