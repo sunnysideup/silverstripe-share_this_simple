@@ -23,7 +23,7 @@
         }
     ],
     "require": {
-        "silverstripe/recipe-cms": "4.*"
+        "silverstripe/recipe-cms": "~4.0"
     },
     "extra": {
         "expose": [
