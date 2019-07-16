@@ -23,7 +23,7 @@
         }
     ],
     "require": {
-        "silverstripe/recipe-cms": "~4@stable"
+        "silverstripe/cms": "^4.0"
     },
     "extra": {
         "expose": [
@@ -48,5 +48,7 @@
         "psr-4": {
             "Sunnysideup\\ShareThisSimple\\": "src/"
         }
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
