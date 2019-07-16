@@ -23,11 +23,25 @@
         }
     ],
     "require": {
-        "silverstripe/recipe-cms": "~4.0"
+        "silverstripe/recipe-cms": "~4@stable"
     },
     "extra": {
         "expose": [
             "client/javascript"
+        ],
+        "project-files-installed": [
+            "app/.htaccess",
+            "app/_config.php",
+            "app/_config/mysite.yml",
+            "app/src/Page.php",
+            "app/src/PageController.php"
+        ],
+        "public-files-installed": [
+            ".htaccess",
+            "index.php",
+            "install-frameworkmissing.html",
+            "install.php",
+            "web.config"
         ]
     },
     "autoload": {
