@@ -23,16 +23,32 @@
         }
     ],
     "require": {
-        "silverstripe/recipe-cms": "4.*"
+        "silverstripe/cms": "^4.0"
     },
     "extra": {
         "expose": [
             "client/javascript"
+        ],
+        "project-files-installed": [
+            "app/.htaccess",
+            "app/_config.php",
+            "app/_config/mysite.yml",
+            "app/src/Page.php",
+            "app/src/PageController.php"
+        ],
+        "public-files-installed": [
+            ".htaccess",
+            "index.php",
+            "install-frameworkmissing.html",
+            "install.php",
+            "web.config"
         ]
     },
     "autoload": {
         "psr-4": {
             "Sunnysideup\\ShareThisSimple\\": "src/"
         }
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
