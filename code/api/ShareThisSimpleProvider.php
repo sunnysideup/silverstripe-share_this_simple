@@ -15,7 +15,6 @@ class ShareThisSimpleProvider extends ViewableData
     private static $casting = array(
         "FacebookShareLink" => "Varchar",
         "TwitterShareLink" => "Varchar",
-        "GooglePlusShareLink" => "Varchar",
         "TumblrShareLink" => "Varchar",
         "PinterestShareLink" => "Varchar",
         "EmailShareLink" => "Varchar",
@@ -163,30 +162,6 @@ class ShareThisSimpleProvider extends ViewableData
         return ($pageURL) ? "https://twitter.com/intent/tweet?source=$pageURL&text=$titleFull".urlencode(': ').$pageURL : false;
     }
 
-    /**
-     * ALIAS
-     * Generate a URL to share this content on Twitter
-     * Specs: https://dev.twitter.com/web/tweet-button/web-intent.
-     * @param string $customDescription   e.g. foo bar cool stuff
-     * @return string|false
-     */
-    public function GooglePlusShareLink($customDescription = '')
-    {
-        return $this->getGooglePlusShareLink($customDescription);
-    }
-
-    /**
-     * Generate a URL to share this content on Twitter
-     * Specs: https://dev.twitter.com/web/tweet-button/web-intent.
-     * @param string $customDescription   e.g. foo bar cool stuff
-     * @return string|false
-     */
-    public function getGooglePlusShareLink($customDescription = '')
-    {
-        extract($this->getShareThisArray($customDescription));
-
-        return ($pageURL) ? "https://plus.google.com/share?url=$pageURL" : false;
-    }
 
     /**
      * ALIAS

@@ -6,7 +6,6 @@
             <ul>
                 <li><a href="$FacebookShareLink" class="FacebookShareLink">FacebookShareLink</a></li>
                 <li><a href="$TwitterShareLink" class="TwitterShareLink">TwitterShareLink</a></li>
-                <li><a href="$GooglePlusShareLink" class="GooglePlusShareLink">GooglePlusShareLink</a></li>
                 <li><a href="$TumblrShareLink" class="TumblrShareLink">TumblrShareLink</a></li>
                 <li><a href="$PinterestShareLink" class="PinterestShareLink">PinterestShareLink</a></li>
                 <li><a href="$EmailShareLink" class="EmailShareLink">EmailShareLink</a></li>
