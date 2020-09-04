@@ -146,7 +146,7 @@ class ShareThisSimpleProvider extends ViewableData
     {
         extract($this->getShareThisArray($customDescription));
 
-        return ($pageURL) ?
+        return $pageURL ?
             "https://www.facebook.com/sharer/sharer.php?u=${pageURL}&t=${title}"
             :
             false;
@@ -178,7 +178,7 @@ class ShareThisSimpleProvider extends ViewableData
     {
         extract($this->getShareThisArray($customDescription));
 
-        return ($pageURL) ?
+        return $pageURL ?
             "https://twitter.com/intent/tweet?source=${pageURL}&text=${titleFull}" . urlencode(': ') . $pageURL
             :
             false;
@@ -208,7 +208,7 @@ class ShareThisSimpleProvider extends ViewableData
     {
         extract($this->getShareThisArray($customDescription));
 
-        return ($pageURL) ?
+        return $pageURL ?
            "https://www.linkedin.com/shareArticle?mini=true&url=${pageURL}&summary=${titleFull}"
            :
            false;
@@ -236,7 +236,7 @@ class ShareThisSimpleProvider extends ViewableData
     {
         extract($this->getShareThisArray($customDescription));
 
-        return ($pageURL) ?
+        return $pageURL ?
             "http://www.tumblr.com/share/link?url=${pageURL}&name=${title}&description=${description}"
             :
             false;
@@ -264,7 +264,7 @@ class ShareThisSimpleProvider extends ViewableData
     {
         extract($this->getShareThisArray($customDescription));
 
-        return ($pageURL) ?
+        return $pageURL ?
             "http://pinterest.com/pin/create/button/?url=${pageURL}&description=${description}&media=${media}"
             :
             false;
@@ -290,7 +290,7 @@ class ShareThisSimpleProvider extends ViewableData
     {
         extract($this->getShareThisArray($customDescription));
 
-        return ($pageURL) ? "mailto:?subject=${title}&body=${pageURL}" : false;
+        return $pageURL ? "mailto:?subject=${title}&body=${pageURL}" : false;
     }
 
     /**
@@ -315,7 +315,7 @@ class ShareThisSimpleProvider extends ViewableData
     {
         extract($this->getShareThisArray($customDescription));
 
-        return ($pageURL) ? "http://reddit.com/submit?url=${pageURL}&title=${title}" : false;
+        return $pageURL ? "http://reddit.com/submit?url=${pageURL}&title=${title}" : false;
     }
 
     /**
