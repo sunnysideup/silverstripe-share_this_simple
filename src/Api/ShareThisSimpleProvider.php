@@ -55,6 +55,7 @@ class ShareThisSimpleProvider extends ViewableData
      */
     public function __construct($object)
     {
+        parent::__construct();
         $this->object = $object;
     }
 
