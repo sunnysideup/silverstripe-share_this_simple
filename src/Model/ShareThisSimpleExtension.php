@@ -25,10 +25,10 @@ class ShareThisSimpleExtension extends DataExtension
      */
     public function ShareThisSimpleProvider()
     {
-        if (! isset($_share_this_simple_provider[$this->owner->ID])) {
-            $_share_this_simple_provider[$this->owner->ID] = ShareThisSimpleProvider::create($this->owner);
+        if (! isset(self::$_share_this_simple_provider[$this->owner->ID])) {
+            self::$_share_this_simple_provider[$this->owner->ID] = ShareThisSimpleProvider::create($this->owner);
         }
 
-        return $_share_this_simple_provider[$this->owner->ID];
+        return self::$_share_this_simple_provider[$this->owner->ID];
     }
 }
