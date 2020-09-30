@@ -52,11 +52,13 @@ modified:	src/Api/ShareThisSimpleProvider.php
 +use SilverStripe\View\ArrayData;
 +use SilverStripe\Core\Config\Config;
 +use Sunnysideup\ShareThisSimple\Api\ShareThisSimpleProvider;
-+use SilverStripe\View\ViewableData;
++use SilverStripe\Core\Config\Configurable;
+use SilverStripe\Core\Extensible;
+use SilverStripe\Core\Injector\Injectable;
 +
 
 
- class ShareThisSimpleProvider extends ViewableData
+ class ShareThisSimpleProvider ~
 @@ -351,7 +357,7 @@
              if ($this->imageMethods) {
                  $imageMethods = $this->imageMethods;

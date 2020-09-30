@@ -6,10 +6,16 @@ use SilverStripe\Core\Config\Config;
 use SilverStripe\ORM\ArrayList;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\View\ArrayData;
-use SilverStripe\View\ViewableData;
+use SilverStripe\Core\Config\Configurable;
+use SilverStripe\Core\Extensible;
+use SilverStripe\Core\Injector\Injectable;
 
-class ShareThisSimpleProvider extends ViewableData
+class ShareThisSimpleProvider
 {
+    use Configurable;
+    use Extensible;
+    use Injectable;
+
     /**
      * @var DataObject
      */
