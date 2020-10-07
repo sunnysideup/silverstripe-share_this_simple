@@ -6,15 +6,10 @@ use SilverStripe\Core\Config\Config;
 use SilverStripe\ORM\ArrayList;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\View\ArrayData;
-use SilverStripe\Core\Config\Configurable;
-use SilverStripe\Core\Extensible;
-use SilverStripe\Core\Injector\Injectable;
+use SilverStripe\View\ViewableData;
 
-class ShareThisSimpleProvider
+class ShareThisSimpleProvider extends ViewableData
 {
-    use Configurable;
-    use Extensible;
-    use Injectable;
 
     /**
      * @var DataObject
@@ -62,6 +57,7 @@ class ShareThisSimpleProvider
      */
     public function __construct($object)
     {
+        parent::__construct();
         $this->object = $object;
     }
 
