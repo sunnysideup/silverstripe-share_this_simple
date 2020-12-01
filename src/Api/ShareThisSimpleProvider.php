@@ -30,9 +30,9 @@ class ShareThisSimpleProvider extends ViewableData
 
     protected $vias = [];
 
-    protected static $pop_up_window_height = 320;
+    protected static $pop_up_window_height = 280;
 
-    protected static $pop_up_window_width = 200;
+    protected static $pop_up_window_width = 320;
 
     protected static $cacheGetShareThisArray = [];
 
@@ -54,6 +54,7 @@ class ShareThisSimpleProvider extends ViewableData
         'EmailShareLink' => 'Varchar',
         'RedditShareLink' => 'Varchar',
         'PinterestLinkForSpecificImage' => 'Varchar',
+        'WindowPopupHtml' => 'HTMLText',
     ];
 
     /**
@@ -105,13 +106,12 @@ class ShareThisSimpleProvider extends ViewableData
         $width = $this->Config()->get('pop_up_window_width');
         $height = $this->Config()->get('pop_up_window_height');
         $html = <<<html
-                    onclick="
-                        window.open(this.href,'Share','width=${width},height=${height},toolbar=no,menubar=no,location=no,status=no,scrollbars=no,resizable=yes');
-                        return false;
-                    "
-
+                    onclick="window.open(this.href,'Share','width=${width},height=${height},toolbar=no,menubar=no,location=no,status=no,scrollbars=no,resizable=yes'); return false;"
 html;
+        $html = preg_replace('!\s+!', ' ', $html);
+
         return DBField::create_field('HTMLText', $html);
+
     }
 
     /**
