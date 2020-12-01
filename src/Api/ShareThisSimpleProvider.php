@@ -4,9 +4,10 @@ namespace Sunnysideup\ShareThisSimple\Api;
 
 use SilverStripe\Core\Config\Config;
 use SilverStripe\ORM\ArrayList;
-use SilverStripe\ORM\DataObject;
+use SilverStripe\ORM\FieldType\DBField;
 use SilverStripe\View\ArrayData;
 use SilverStripe\View\ViewableData;
+
 
 class ShareThisSimpleProvider extends ViewableData
 {
