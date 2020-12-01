@@ -22,12 +22,15 @@ As per usual - nothing special.
 in template within context of a page:
 
 ```html
-    <a href="$ShareThisSimpleProvider.FacebookShareLink">Share on Facebook</a>
+    <a href="$ShareThisSimpleProvider.FacebookShareLink" $ShareThisSimpleProvider.WindowPopupHtml>Share on Facebook</a>
 ```
+
+Note that we you can add a nice old school pop-up as Facebook does not allow iframe.
+
 OR
 
 ```html
-    <a href="$ShareThisSimpleProvider.TwitterShareLink">Share on Twitter</a>
+    <a href="$ShareThisSimpleProvider.TwitterShareLink" >Share on Twitter</a>
 ```
 OR
 
