@@ -10,7 +10,6 @@ use SilverStripe\View\ViewableData;
 
 class ShareThisSimpleProvider extends ViewableData
 {
-
     /**
      * @var DataObject
      */
@@ -29,6 +28,10 @@ class ShareThisSimpleProvider extends ViewableData
     protected $mentions = '';
 
     protected $vias = [];
+
+    protected static $pop_up_window_height = 320;
+
+    protected static $pop_up_window_width = 200;
 
     protected static $cacheGetShareThisArray = [];
 
@@ -94,6 +97,20 @@ class ShareThisSimpleProvider extends ViewableData
     public function setVias($a)
     {
         $this->vias = $a;
+    }
+
+    public function getWindowPopupHtml() : string
+    {
+        $width = $this->Config()->get('pop_up_window_width');
+        $height = $this->Config()->get('pop_up_window_height');
+        $html = <<<html
+                    onclick="
+                        window.open(this.href,'Share','width=${width},height=${height},toolbar=no,menubar=no,location=no,status=no,scrollbars=no,resizable=yes');
+                        return false;
+                    "
+
+html;
+        return DBField::create_field('HTMLText', $html);
     }
 
     /**
