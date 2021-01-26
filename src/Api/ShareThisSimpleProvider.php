@@ -8,7 +8,6 @@ use SilverStripe\ORM\FieldType\DBField;
 use SilverStripe\View\ArrayData;
 use SilverStripe\View\ViewableData;
 
-
 class ShareThisSimpleProvider extends ViewableData
 {
     /**
@@ -100,7 +99,7 @@ class ShareThisSimpleProvider extends ViewableData
         $this->vias = $a;
     }
 
-    public function getWindowPopupHtml() : string
+    public function getWindowPopupHtml(): string
     {
         $width = $this->Config()->get('pop_up_window_width');
         $height = $this->Config()->get('pop_up_window_height');
