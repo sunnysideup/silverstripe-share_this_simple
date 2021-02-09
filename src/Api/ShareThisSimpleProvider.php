@@ -4,7 +4,7 @@ namespace Sunnysideup\ShareThisSimple\Api;
 
 use SilverStripe\Core\Config\Config;
 use SilverStripe\ORM\ArrayList;
-use SilverStripe\ORM\DataObject;
+use SilverStripe\ORM\FieldType\DBField;
 use SilverStripe\View\ArrayData;
 use SilverStripe\View\ViewableData;
 use SilverStripe\ORM\FieldType\DBField;
@@ -100,7 +100,7 @@ class ShareThisSimpleProvider extends ViewableData
         $this->vias = $a;
     }
 
-    public function getWindowPopupHtml() : string
+    public function getWindowPopupHtml(): string
     {
         $width = $this->Config()->get('pop_up_window_width');
         $height = $this->Config()->get('pop_up_window_height');
