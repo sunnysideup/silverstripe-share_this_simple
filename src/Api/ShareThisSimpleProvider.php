@@ -7,6 +7,7 @@ use SilverStripe\ORM\ArrayList;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\View\ArrayData;
 use SilverStripe\View\ViewableData;
+use SilverStripe\ORM\FieldType\DBField;
 
 class ShareThisSimpleProvider extends ViewableData
 {
@@ -104,12 +105,10 @@ class ShareThisSimpleProvider extends ViewableData
         $width = $this->Config()->get('pop_up_window_width');
         $height = $this->Config()->get('pop_up_window_height');
         $html = <<<html
-                    onclick="
-                        window.open(this.href,'Share','width=${width},height=${height},toolbar=no,menubar=no,location=no,status=no,scrollbars=no,resizable=yes');
-                        return false;
-                    "
-
+                    onclick="window.open(this.href,'Share','width=${width},height=${height},toolbar=no,menubar=no,location=no,status=no,scrollbars=no,resizable=yes'); return false;"
 html;
+        $html = preg_replace('!\s+!', ' ', $html);
+
         return DBField::create_field('HTMLText', $html);
     }
 
