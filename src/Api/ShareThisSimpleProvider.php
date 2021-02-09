@@ -7,7 +7,6 @@ use SilverStripe\ORM\ArrayList;
 use SilverStripe\ORM\FieldType\DBField;
 use SilverStripe\View\ArrayData;
 use SilverStripe\View\ViewableData;
-use SilverStripe\ORM\FieldType\DBField;
 
 class ShareThisSimpleProvider extends ViewableData
 {
