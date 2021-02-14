@@ -4,9 +4,9 @@ namespace Sunnysideup\ShareThisSimple\Api;
 
 use SilverStripe\Core\Config\Config;
 use SilverStripe\ORM\ArrayList;
-use SilverStripe\ORM\FieldType\DBField;
-
 use SilverStripe\ORM\DataObject;
+
+use SilverStripe\ORM\FieldType\DBField;
 use SilverStripe\View\ArrayData;
 use SilverStripe\View\ViewableData;
 
@@ -32,55 +32,46 @@ class ShareThisSimpleProvider extends ViewableData
     protected $viasArray = [];
 
     /**
-     *
      * @var string
      */
     protected $pageURL = '';
 
     /**
-     *
      * @var string
      */
     protected $title = '';
 
     /**
-     *
      * @var string
      */
     protected $titleFull = '';
 
     /**
-     *
      * @var string
      */
     protected $media = '';
 
     /**
-     *
      * @var string
      */
     protected $description = '';
 
     /**
-     *
      * @var string
      */
     protected $descriptionFull = '';
 
     /**
-     *
      * @var string
      */
     protected $hashTags = '';
 
     /**
-     *
      * @var string
      */
     protected $mentions = '';
 
     /**
-     *
      * @var string
      */
     protected $vias = '';
@@ -117,49 +108,49 @@ class ShareThisSimpleProvider extends ViewableData
     public function __construct($object)
     {
         parent::__construct();
-        if(! $object instanceof DataObject) {
-            user_error('Please provide a DataObject, you have provided a: '. get_class($object));
+        if (! $object instanceof DataObject) {
+            user_error('Please provide a DataObject, you have provided a: ' . get_class($object));
         }
         $this->object = $object;
     }
 
-    public function setLinkMethod(string $s) : self
+    public function setLinkMethod(string $s): self
     {
         $this->linkMethod = $s;
         return $this;
     }
 
-    public function setTitleMethod(string $s) : self
+    public function setTitleMethod(string $s): self
     {
         $this->titleMethod = $s;
         return $this;
     }
 
-    public function setImageMethods(string $a) : self
+    public function setImageMethods(string $a): self
     {
         $this->imageMethods = $a;
         return $this;
     }
 
-    public function setDescriptionMethod(string $s) : self
+    public function setDescriptionMethod(string $s): self
     {
         $this->descriptionMethod = $s;
         return $this;
     }
 
-    public function setHashTags(array $a) : self
+    public function setHashTags(array $a): self
     {
         $this->hashTagsArray = $a;
         return $this;
     }
 
-    public function setMentions(array $a) : self
+    public function setMentions(array $a): self
     {
         $this->mentionsArray = $a;
         return $this;
     }
 
-    public function setVias(array $a) : self
+    public function setVias(array $a): self
     {
         $this->viasArray = $a;
         return $this;
@@ -182,7 +173,7 @@ html;
      * @param string $customDescription   e.g. foo bar cool stuff
      * @return ArrayList
      */
-    public function ShareThisLinks(?string $customDescription = '') : ArrayList
+    public function ShareThisLinks(?string $customDescription = ''): ArrayList
     {
         $arrayList = ArrayList::create();
         $options = array_keys($this->config()->get('casting')); //$this->config()->get('casting') ???
@@ -226,11 +217,10 @@ html;
      *  &redirect_uri=http%3A%2F%2Fwww.facebook.com%2F
      * @return string|false
      */
-    public function getFacebookShareLink(?string $customDescription = '') : string
+    public function getFacebookShareLink(?string $customDescription = ''): string
     {
-
         return $this->pageURL ?
-            "https://www.facebook.com/sharer/sharer.php?u=".$this->pageURL."&t=".$this->title.""
+            'https://www.facebook.com/sharer/sharer.php?u=' . $this->pageURL . '&t=' . $this->title . ''
             :
             '';
     }
@@ -257,12 +247,12 @@ html;
      * @param string $customDescription   e.g. foo bar cool stuff
      * @return string|false
      */
-    public function getTwitterShareLink(?string $customDescription = '') : string
+    public function getTwitterShareLink(?string $customDescription = ''): string
     {
         extract($this->getShareThisArray($customDescription));
 
         return $this->pageURL ?
-            "https://twitter.com/intent/tweet?source=".$this->pageURL."&text=".$this->titleFull."" . urlencode(': ') . $this->pageURL
+            'https://twitter.com/intent/tweet?source=' . $this->pageURL . '&text=' . $this->titleFull . '' . urlencode(': ') . $this->pageURL
             :
             '';
     }
@@ -292,7 +282,7 @@ html;
         extract($this->getShareThisArray($customDescription));
 
         return $this->pageURL ?
-           "https://www.linkedin.com/shareArticle?mini=true&url=".$this->pageURL."&summary=".$this->titleFull.""
+           'https://www.linkedin.com/shareArticle?mini=true&url=' . $this->pageURL . '&summary=' . $this->titleFull . ''
            :
            '';
     }
@@ -304,7 +294,7 @@ html;
      * @param string $customDescription   e.g. foo bar cool stuff
      * @return string|false
      */
-    public function TumblrShareLink(?string $customDescription = '') : string
+    public function TumblrShareLink(?string $customDescription = ''): string
     {
         return $this->getTumblrShareLink($customDescription);
     }
@@ -320,7 +310,7 @@ html;
         extract($this->getShareThisArray($customDescription));
 
         return $this->pageURL ?
-            "http://www.tumblr.com/share/link?url=".$this->pageURL."&name=".$this->title."&description=".$this->description.""
+            'http://www.tumblr.com/share/link?url=' . $this->pageURL . '&name=' . $this->title . '&description=' . $this->description . ''
             :
             '';
     }
@@ -332,7 +322,7 @@ html;
      * @param string $customDescription   e.g. foo bar cool stuff
      * @return string|false
      */
-    public function PinterestShareLink(?string $customDescription = '') : string
+    public function PinterestShareLink(?string $customDescription = ''): string
     {
         return $this->getPinterestShareLink($customDescription);
     }
@@ -343,12 +333,12 @@ html;
      * @param string $customDescription   e.g. foo bar cool stuff
      * @return string|false
      */
-    public function getPinterestShareLink(?string $customDescription = '') : string
+    public function getPinterestShareLink(?string $customDescription = ''): string
     {
         extract($this->getShareThisArray($customDescription));
 
         return $this->pageURL ?
-            "http://pinterest.com/pin/create/button/?url=".$this->pageURL."&description=".$this->description."&media=".$this->media.""
+            'http://pinterest.com/pin/create/button/?url=' . $this->pageURL . '&description=' . $this->description . '&media=' . $this->media . ''
             :
             '';
     }
@@ -359,7 +349,7 @@ html;
      * @param string $customDescription   e.g. foo bar cool stuff
      * @return string|false
      */
-    public function EmailShareLink(?string $customDescription = '') : string
+    public function EmailShareLink(?string $customDescription = ''): string
     {
         return $this->getEmailShareLink($customDescription);
     }
@@ -369,11 +359,11 @@ html;
      * @param string $customDescription   e.g. foo bar cool stuff
      * @return string|false
      */
-    public function getEmailShareLink(?string $customDescription = '') : string
+    public function getEmailShareLink(?string $customDescription = ''): string
     {
         extract($this->getShareThisArray($customDescription));
 
-        return $this->pageURL ? "mailto:?subject=".$this->title."&body=".$this->pageURL."" : '';
+        return $this->pageURL ? 'mailto:?subject=' . $this->title . '&body=' . $this->pageURL . '' : '';
     }
 
     /**
@@ -383,7 +373,7 @@ html;
      * @param string $customDescription   e.g. foo bar cool stuff
      * @return string|false
      */
-    public function RedditShareLink(?string $customDescription = '') : string
+    public function RedditShareLink(?string $customDescription = ''): string
     {
         return $this->getRedditShareLink($customDescription);
     }
@@ -394,11 +384,11 @@ html;
      * @param string $customDescription   e.g. foo bar cool stuff
      * @return string|false
      */
-    public function getRedditShareLink(?string $customDescription = '') : string
+    public function getRedditShareLink(?string $customDescription = ''): string
     {
         extract($this->getShareThisArray($customDescription));
 
-        return $this->pageURL ? "http://reddit.com/submit?url=".$this->pageURL."&title=".$this->title."" : '';
+        return $this->pageURL ? 'http://reddit.com/submit?url=' . $this->pageURL . '&title=' . $this->title . '' : '';
     }
 
     /**
@@ -406,7 +396,7 @@ html;
      *
      * @return array
      */
-    public function getShareThisArray(?string $customDescription = '') : array
+    public function getShareThisArray(?string $customDescription = ''): array
     {
         if (! isset(self::$cacheGetShareThisArray[$this->object->ID])) {
             //1. link
@@ -421,8 +411,8 @@ html;
             $this->hashTags = $this->getValuesFromArrayToString('hashTagsArray', 'hash_tags', '#');
             $this->mentions = $this->getValuesFromArrayToString('mentionsArray', 'mentions', '@');
             $this->vias = $this->getValuesFromArrayToString('viasArray', 'vias', '@');
-            $this->titleFull = trim($mentions . ' ' . $title . ' ' . $hashTags . ' ' . $vias);
-            $this->descriptionFull = trim($mentions . ' ' . $description . ' ' . $hashTags . ' ' . $vias);
+            $this->titleFull = trim($this->mentions . ' ' . $this->title . ' ' . $this->hashTags . ' ' . $this->vias);
+            $this->descriptionFull = trim($this->mentions . ' ' . $this->description . ' ' . $this->hashTags . ' ' . $this->vias);
 
             //return ...
             self::$cacheGetShareThisArray[$this->object->ID] = [
@@ -447,7 +437,7 @@ html;
      *
      * @return string
      */
-    public function PinterestLinkForSpecificImage(string $imageMethod, ?bool $useImageTitle = false) : string
+    public function PinterestLinkForSpecificImage(string $imageMethod, ?bool $useImageTitle = false): string
     {
         return $this->getPinterestLinkForSpecificImage(
             $imageMethod,
@@ -455,7 +445,7 @@ html;
         );
     }
 
-    public function getPinterestLinkForSpecificImage(string $imageMethod, ?bool $useImageTitle = false) : string
+    public function getPinterestLinkForSpecificImage(string $imageMethod, ?bool $useImageTitle = false): string
     {
         if ($this->object && $this->object->hasMethod($imageMethod)) {
             $image = $this->object->{$imageMethod}();
@@ -489,7 +479,7 @@ html;
         return trim($str);
     }
 
-    private function shareThisLinkField() : string
+    private function shareThisLinkField(): string
     {
         return $this->shareThisFieldAsString($this->linkMethod);
     }
@@ -498,7 +488,6 @@ html;
     {
         return $this->shareThisFieldAsString($this->titleMethod);
     }
-
 
     private function shareThisFieldAsString(string $field): string
     {
