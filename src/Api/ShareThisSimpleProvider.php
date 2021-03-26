@@ -219,6 +219,7 @@ html;
      */
     public function getFacebookShareLink(?string $customDescription = ''): string
     {
+        $this->getShareThisArray($customDescription);
         return $this->pageURL ?
             'https://www.facebook.com/sharer/sharer.php?u=' . $this->pageURL . '&t=' . $this->title . ''
             :
@@ -249,8 +250,7 @@ html;
      */
     public function getTwitterShareLink(?string $customDescription = ''): string
     {
-        extract($this->getShareThisArray($customDescription));
-
+        $this->getShareThisArray($customDescription);
         return $this->pageURL ?
             'https://twitter.com/intent/tweet?source=' . $this->pageURL . '&text=' . $this->titleFull . '' . urlencode(': ') . $this->pageURL
             :
@@ -279,7 +279,7 @@ html;
      */
     public function getLinkedInShareLink(?string $customDescription = ''): string
     {
-        extract($this->getShareThisArray($customDescription));
+        $this->getShareThisArray($customDescription);
 
         return $this->pageURL ?
            'https://www.linkedin.com/shareArticle?mini=true&url=' . $this->pageURL . '&summary=' . $this->titleFull . ''
@@ -307,7 +307,7 @@ html;
      */
     public function getTumblrShareLink(?string $customDescription = '')
     {
-        extract($this->getShareThisArray($customDescription));
+        $this->getShareThisArray($customDescription);
 
         return $this->pageURL ?
             'http://www.tumblr.com/share/link?url=' . $this->pageURL . '&name=' . $this->title . '&description=' . $this->description . ''
@@ -335,7 +335,7 @@ html;
      */
     public function getPinterestShareLink(?string $customDescription = ''): string
     {
-        extract($this->getShareThisArray($customDescription));
+        $this->getShareThisArray($customDescription);
 
         return $this->pageURL ?
             'http://pinterest.com/pin/create/button/?url=' . $this->pageURL . '&description=' . $this->description . '&media=' . $this->media . ''
@@ -361,7 +361,7 @@ html;
      */
     public function getEmailShareLink(?string $customDescription = ''): string
     {
-        extract($this->getShareThisArray($customDescription));
+        $this->getShareThisArray($customDescription);
 
         return $this->pageURL ? 'mailto:?subject=' . $this->title . '&body=' . $this->pageURL . '' : '';
     }
@@ -386,7 +386,7 @@ html;
      */
     public function getRedditShareLink(?string $customDescription = ''): string
     {
-        extract($this->getShareThisArray($customDescription));
+        $this->getShareThisArray($customDescription);
 
         return $this->pageURL ? 'http://reddit.com/submit?url=' . $this->pageURL . '&title=' . $this->title . '' : '';
     }
@@ -398,7 +398,8 @@ html;
      */
     public function getShareThisArray(?string $customDescription = ''): array
     {
-        if (! isset(self::$cacheGetShareThisArray[$this->object->ID])) {
+        $cacheKey = $this->object->ID . '_' . preg_replace('/[^A-Za-z0-9]/', '_', $customDescription);
+        if (! isset(self::$cacheGetShareThisArray[$cacheKey])) {
             //1. link
             $this->link = $this->shareThisLinkField();
 
@@ -415,7 +416,7 @@ html;
             $this->descriptionFull = trim($this->mentions . ' ' . $this->description . ' ' . $this->hashTags . ' ' . $this->vias);
 
             //return ...
-            self::$cacheGetShareThisArray[$this->object->ID] = [
+            self::$cacheGetShareThisArray[$cacheKey] = [
                 'pageURL' => rawurlencode($this->link),
                 'title' => rawurlencode($this->title),
                 'titleFull' => rawurlencode($this->titleFull),
@@ -427,8 +428,11 @@ html;
                 'vias' => rawurlencode($this->vias),
             ];
         }
+        foreach (self::$cacheGetShareThisArray[$cacheKey] as $field => $value) {
+            $this->{$field} = $value;
+        }
 
-        return self::$cacheGetShareThisArray[$this->object->ID];
+        return self::$cacheGetShareThisArray[$cacheKey];
     }
 
     /**
@@ -447,7 +451,7 @@ html;
 
     public function getPinterestLinkForSpecificImage(string $imageMethod, ?bool $useImageTitle = false): string
     {
-        if ($this->object && $this->object->hasMethod($imageMethod)) {
+        if ($this->object && $this->object->exists() && $this->object->hasMethod($imageMethod)) {
             $image = $this->object->{$imageMethod}();
             if ($image && $image->exists()) {
                 if ($useImageTitle) {
