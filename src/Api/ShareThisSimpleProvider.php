@@ -170,7 +170,6 @@ html;
     /**
      * return of ShareThisLinks.
      * @param string $customDescription   e.g. foo bar cool stuff
-     * @return ArrayList
      */
     public function ShareThisLinks(?string $customDescription = ''): ArrayList
     {
@@ -197,7 +196,6 @@ html;
      * ALIAS
      * Generate a URL to share this content on Facebook.
      * @param string $customDescription   e.g. foo bar cool stuff
-     * @return string
      */
     public function FacebookShareLink(?string $customDescription = ''): string
     {
@@ -214,7 +212,6 @@ html;
      *  &caption=%20
      *  &description=DESCRIPTION_HERE
      *  &redirect_uri=http%3A%2F%2Fwww.facebook.com%2F
-     * @return string
      */
     public function getFacebookShareLink(?string $customDescription = ''): string
     {
@@ -230,7 +227,6 @@ html;
      * Generate a URL to share this content on Twitter
      * Specs: https://dev.twitter.com/web/tweet-button/web-intent.
      * @param string $customDescription   e.g. foo bar cool stuff
-     * @return string
      */
     public function TwitterShareLink(?string $customDescription = ''): string
     {
@@ -245,7 +241,6 @@ html;
      *  &text=test:%20http%3A%2F%2Fsunnysideup.co.nz
      *  &via=foobar
      * @param string $customDescription   e.g. foo bar cool stuff
-     * @return string
      */
     public function getTwitterShareLink(?string $customDescription = ''): string
     {
@@ -261,7 +256,6 @@ html;
      * Generate a URL to share this content on Twitter
      * Specs: https://dev.twitter.com/web/tweet-button/web-intent.
      * @param string $customDescription   e.g. foo bar cool stuff
-     * @return string
      */
     public function LinkedInShareLink(?string $customDescription = ''): string
     {
@@ -274,7 +268,6 @@ html;
      * example: https://www.linkedin.com/shareArticle?
      * mini=true&url=http://www.cnn.com&title=&summary=chek this out&source=
      * @param string $customDescription   e.g. foo bar cool stuff
-     * @return string
      */
     public function getLinkedInShareLink(?string $customDescription = ''): string
     {
@@ -291,7 +284,6 @@ html;
      * Generate a URL to share this content on Twitter
      * Specs: https://dev.twitter.com/web/tweet-button/web-intent.
      * @param string $customDescription   e.g. foo bar cool stuff
-     * @return string
      */
     public function TumblrShareLink(?string $customDescription = ''): string
     {
@@ -319,7 +311,6 @@ html;
      * Generate a URL to share this content on Twitter
      * Specs: https://dev.twitter.com/web/tweet-button/web-intent.
      * @param string $customDescription   e.g. foo bar cool stuff
-     * @return string
      */
     public function PinterestShareLink(?string $customDescription = ''): string
     {
@@ -330,7 +321,6 @@ html;
      * Generate a URL to share this content on Twitter
      * Specs: https://dev.twitter.com/web/tweet-button/web-intent.
      * @param string $customDescription   e.g. foo bar cool stuff
-     * @return string
      */
     public function getPinterestShareLink(?string $customDescription = ''): string
     {
@@ -346,7 +336,6 @@ html;
      * ALIAS
      * Generate a 'mailto' URL to share this content via Email.
      * @param string $customDescription   e.g. foo bar cool stuff
-     * @return string
      */
     public function EmailShareLink(?string $customDescription = ''): string
     {
@@ -356,7 +345,6 @@ html;
     /**
      * Generate a 'mailto' URL to share this content via Email.
      * @param string $customDescription   e.g. foo bar cool stuff
-     * @return string
      */
     public function getEmailShareLink(?string $customDescription = ''): string
     {
@@ -370,7 +358,6 @@ html;
      * Generate a URL to share this content on Twitter
      * Specs: https://dev.twitter.com/web/tweet-button/web-intent.
      * @param string $customDescription   e.g. foo bar cool stuff
-     * @return string
      */
     public function RedditShareLink(?string $customDescription = ''): string
     {
@@ -381,7 +368,6 @@ html;
      * Generate a URL to share this content on Twitter
      * Specs: https://dev.twitter.com/web/tweet-button/web-intent.
      * @param string $customDescription   e.g. foo bar cool stuff
-     * @return string
      */
     public function getRedditShareLink(?string $customDescription = ''): string
     {
@@ -392,8 +378,6 @@ html;
 
     /**
      * @param string $customDescription   e.g. foo bar cool stuff
-     *
-     * @return array
      */
     public function getShareThisArray(?string $customDescription = ''): array
     {
@@ -437,8 +421,6 @@ html;
     /**
      * @param string $imageMethod   e.g. MyImage
      * @param bool $useImageTitle  if set to false, it will use the page title as the image title
-     *
-     * @return string
      */
     public function PinterestLinkForSpecificImage(string $imageMethod, ?bool $useImageTitle = false): string
     {
