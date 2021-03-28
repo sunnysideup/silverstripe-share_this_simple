@@ -107,9 +107,6 @@ class ShareThisSimpleProvider extends ViewableData
     public function __construct($object)
     {
         parent::__construct();
-        if (! $object instanceof DataObject) {
-            user_error('Please provide a DataObject, you have provided a: ' . get_class($object));
-        }
         $this->object = $object;
     }
 
@@ -160,9 +157,9 @@ class ShareThisSimpleProvider extends ViewableData
         $width = $this->Config()->get('pop_up_window_width');
         $height = $this->Config()->get('pop_up_window_height');
         $html = <<<html
-                    onclick="window.open(this.href,'Share','width=${width},height=${height},toolbar=no,menubar=no,location=no,status=no,scrollbars=no,resizable=yes'); return '';"
+                    onclick="window.open(this.href,'Share','width={$width},height={$height},toolbar=no,menubar=no,location=no,status=no,scrollbars=no,resizable=yes'); return '';"
 html;
-        $html = preg_replace('!\s+!', ' ', $html);
+        $html = preg_replace('#\s+#', ' ', $html);
 
         return DBField::create_field('HTMLText', $html);
     }
@@ -216,7 +213,7 @@ html;
     public function getFacebookShareLink(?string $customDescription = ''): string
     {
         $this->getShareThisArray($customDescription);
-        return $this->pageURL ?
+        return $this->pageURL !== '' ?
             'https://www.facebook.com/sharer/sharer.php?u=' . $this->pageURL . '&t=' . $this->title . ''
             :
             '';
@@ -245,7 +242,7 @@ html;
     public function getTwitterShareLink(?string $customDescription = ''): string
     {
         $this->getShareThisArray($customDescription);
-        return $this->pageURL ?
+        return $this->pageURL !== '' ?
             'https://twitter.com/intent/tweet?source=' . $this->pageURL . '&text=' . $this->titleFull . '' . urlencode(': ') . $this->pageURL
             :
             '';
@@ -273,7 +270,7 @@ html;
     {
         $this->getShareThisArray($customDescription);
 
-        return $this->pageURL ?
+        return $this->pageURL !== '' ?
            'https://www.linkedin.com/shareArticle?mini=true&url=' . $this->pageURL . '&summary=' . $this->titleFull . ''
            :
            '';
@@ -300,7 +297,7 @@ html;
     {
         $this->getShareThisArray($customDescription);
 
-        return $this->pageURL ?
+        return $this->pageURL !== '' ?
             'http://www.tumblr.com/share/link?url=' . $this->pageURL . '&name=' . $this->title . '&description=' . $this->description . ''
             :
             '';
@@ -326,7 +323,7 @@ html;
     {
         $this->getShareThisArray($customDescription);
 
-        return $this->pageURL ?
+        return $this->pageURL !== '' ?
             'http://pinterest.com/pin/create/button/?url=' . $this->pageURL . '&description=' . $this->description . '&media=' . $this->media . ''
             :
             '';
@@ -350,7 +347,7 @@ html;
     {
         $this->getShareThisArray($customDescription);
 
-        return $this->pageURL ? 'mailto:?subject=' . $this->title . '&body=' . $this->pageURL . '' : '';
+        return $this->pageURL !== '' ? 'mailto:?subject=' . $this->title . '&body=' . $this->pageURL . '' : '';
     }
 
     /**
@@ -373,7 +370,7 @@ html;
     {
         $this->getShareThisArray($customDescription);
 
-        return $this->pageURL ? 'http://reddit.com/submit?url=' . $this->pageURL . '&title=' . $this->title . '' : '';
+        return $this->pageURL !== '' ? 'http://reddit.com/submit?url=' . $this->pageURL . '&title=' . $this->title . '' : '';
     }
 
     /**
@@ -381,7 +378,7 @@ html;
      */
     public function getShareThisArray(?string $customDescription = ''): array
     {
-        $cacheKey = $this->object->ID . '_' . preg_replace('/[^A-Za-z0-9]/', '_', $customDescription);
+        $cacheKey = $this->object->ID . '_' . preg_replace('#[^A-Za-z0-9]#', '_', $customDescription);
         if (! isset(self::$cacheGetShareThisArray[$cacheKey])) {
             //1. link
             $this->link = $this->shareThisLinkField();
@@ -393,8 +390,8 @@ html;
             $this->description = $this->shareThisDescriptionField($customDescription);
 
             $this->hashTags = $this->getValuesFromArrayToString('hashTagsArray', 'hash_tags', '#');
-            $this->mentions = $this->getValuesFromArrayToString('mentionsArray', 'mentions', '@');
-            $this->vias = $this->getValuesFromArrayToString('viasArray', 'vias', '@');
+            $this->mentions = $this->getValuesFromArrayToString('mentionsArray', 'mentions');
+            $this->vias = $this->getValuesFromArrayToString('viasArray', 'vias');
             $this->titleFull = trim($this->mentions . ' ' . $this->title . ' ' . $this->hashTags . ' ' . $this->vias);
             $this->descriptionFull = trim($this->mentions . ' ' . $this->description . ' ' . $this->hashTags . ' ' . $this->vias);
 
@@ -435,11 +432,7 @@ html;
         if ($this->object && $this->object->exists() && $this->object->hasMethod($imageMethod)) {
             $image = $this->object->{$imageMethod}();
             if ($image && $image->exists()) {
-                if ($useImageTitle) {
-                    $imageTitle = $image->Title;
-                } else {
-                    $imageTitle = $this->object->Title;
-                }
+                $imageTitle = $useImageTitle ? $image->Title : $this->object->Title;
                 return 'http://pinterest.com/pin/create/button/'
                     . '?url=' . urlencode($this->object->AbsoluteLink()) . '&amp;'
                     . 'description=' . urlencode($imageTitle) . '&amp;'
@@ -451,11 +444,7 @@ html;
 
     protected function getValuesFromArrayToString(string $variable, string $staticVariable, ?string $prepender = '@')
     {
-        if (! empty($this->{$variable})) {
-            $a = $this->{$variable};
-        } else {
-            $a = $this->Config()->get($staticVariable);
-        }
+        $a = empty($this->{$variable}) ? $this->Config()->get($staticVariable) : $this->{$variable};
         $str = '';
         if (is_array($a) && count($a)) {
             $str = $prepender . implode(' ' . $prepender, $a);
@@ -535,6 +524,6 @@ html;
             }
         }
 
-        return (string) $description;
+        return $description;
     }
 }
