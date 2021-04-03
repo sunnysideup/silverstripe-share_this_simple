@@ -113,42 +113,49 @@ class ShareThisSimpleProvider extends ViewableData
     public function setLinkMethod(string $s): self
     {
         $this->linkMethod = $s;
+
         return $this;
     }
 
     public function setTitleMethod(string $s): self
     {
         $this->titleMethod = $s;
+
         return $this;
     }
 
     public function setImageMethods(string $a): self
     {
         $this->imageMethods = $a;
+
         return $this;
     }
 
     public function setDescriptionMethod(string $s): self
     {
         $this->descriptionMethod = $s;
+
         return $this;
     }
 
     public function setHashTags(array $a): self
     {
         $this->hashTagsArray = $a;
+
         return $this;
     }
 
     public function setMentions(array $a): self
     {
         $this->mentionsArray = $a;
+
         return $this;
     }
 
     public function setVias(array $a): self
     {
         $this->viasArray = $a;
+
         return $this;
     }
 
@@ -166,7 +173,8 @@ html;
 
     /**
      * return of ShareThisLinks.
-     * @param string $customDescription   e.g. foo bar cool stuff
+     *
+     * @param string $customDescription e.g. foo bar cool stuff
      */
     public function ShareThisLinks(?string $customDescription = ''): ArrayList
     {
@@ -192,7 +200,8 @@ html;
     /**
      * ALIAS
      * Generate a URL to share this content on Facebook.
-     * @param string $customDescription   e.g. foo bar cool stuff
+     *
+     * @param string $customDescription e.g. foo bar cool stuff
      */
     public function FacebookShareLink(?string $customDescription = ''): string
     {
@@ -201,19 +210,21 @@ html;
 
     /**
      * Generate a URL to share this content on Facebook.
-     * @param string $customDescription   e.g. foo bar cool stuff
-     * https://www.facebook.com/dialog/feed?
-     *  &link=URL_HERE
-     *  &picture=IMAGE_LINK_HERE
-     *  &name=TITLE_HERE
-     *  &caption=%20
-     *  &description=DESCRIPTION_HERE
-     *  &redirect_uri=http%3A%2F%2Fwww.facebook.com%2F
+     *
+     * @param string $customDescription e.g. foo bar cool stuff
+     *                                  https://www.facebook.com/dialog/feed?
+     *                                  &link=URL_HERE
+     *                                  &picture=IMAGE_LINK_HERE
+     *                                  &name=TITLE_HERE
+     *                                  &caption=%20
+     *                                  &description=DESCRIPTION_HERE
+     *                                  &redirect_uri=http%3A%2F%2Fwww.facebook.com%2F
      */
     public function getFacebookShareLink(?string $customDescription = ''): string
     {
         $this->getShareThisArray($customDescription);
-        return $this->pageURL !== '' ?
+
+        return '' !== $this->pageURL ?
             'https://www.facebook.com/sharer/sharer.php?u=' . $this->pageURL . '&t=' . $this->title . ''
             :
             '';
@@ -223,7 +234,8 @@ html;
      * ALIAS
      * Generate a URL to share this content on Twitter
      * Specs: https://dev.twitter.com/web/tweet-button/web-intent.
-     * @param string $customDescription   e.g. foo bar cool stuff
+     *
+     * @param string $customDescription e.g. foo bar cool stuff
      */
     public function TwitterShareLink(?string $customDescription = ''): string
     {
@@ -236,13 +248,15 @@ html;
      * example: https://twitter.com/intent/tweet?
      *  &source=http%3A%2F%2Fsunnysideup.co.nz
      *  &text=test:%20http%3A%2F%2Fsunnysideup.co.nz
-     *  &via=foobar
-     * @param string $customDescription   e.g. foo bar cool stuff
+     *  &via=foobar.
+     *
+     * @param string $customDescription e.g. foo bar cool stuff
      */
     public function getTwitterShareLink(?string $customDescription = ''): string
     {
         $this->getShareThisArray($customDescription);
-        return $this->pageURL !== '' ?
+
+        return '' !== $this->pageURL ?
             'https://twitter.com/intent/tweet?source=' . $this->pageURL . '&text=' . $this->titleFull . '' . urlencode(': ') . $this->pageURL
             :
             '';
@@ -252,7 +266,8 @@ html;
      * ALIAS
      * Generate a URL to share this content on Twitter
      * Specs: https://dev.twitter.com/web/tweet-button/web-intent.
-     * @param string $customDescription   e.g. foo bar cool stuff
+     *
+     * @param string $customDescription e.g. foo bar cool stuff
      */
     public function LinkedInShareLink(?string $customDescription = ''): string
     {
@@ -263,14 +278,15 @@ html;
      * Generate a URL to share this content on Twitter
      * Specs: ???
      * example: https://www.linkedin.com/shareArticle?
-     * mini=true&url=http://www.cnn.com&title=&summary=chek this out&source=
-     * @param string $customDescription   e.g. foo bar cool stuff
+     * mini=true&url=http://www.cnn.com&title=&summary=chek this out&source=.
+     *
+     * @param string $customDescription e.g. foo bar cool stuff
      */
     public function getLinkedInShareLink(?string $customDescription = ''): string
     {
         $this->getShareThisArray($customDescription);
 
-        return $this->pageURL !== '' ?
+        return '' !== $this->pageURL ?
            'https://www.linkedin.com/shareArticle?mini=true&url=' . $this->pageURL . '&summary=' . $this->titleFull . ''
            :
            '';
@@ -280,7 +296,8 @@ html;
      * ALIAS
      * Generate a URL to share this content on Twitter
      * Specs: https://dev.twitter.com/web/tweet-button/web-intent.
-     * @param string $customDescription   e.g. foo bar cool stuff
+     *
+     * @param string $customDescription e.g. foo bar cool stuff
      */
     public function TumblrShareLink(?string $customDescription = ''): string
     {
@@ -290,14 +307,16 @@ html;
     /**
      * Generate a URL to share this content on Twitter
      * Specs: https://dev.twitter.com/web/tweet-button/web-intent.
-     * @param string $customDescription   e.g. foo bar cool stuff
+     *
+     * @param string $customDescription e.g. foo bar cool stuff
+     *
      * @return string
      */
     public function getTumblrShareLink(?string $customDescription = '')
     {
         $this->getShareThisArray($customDescription);
 
-        return $this->pageURL !== '' ?
+        return '' !== $this->pageURL ?
             'http://www.tumblr.com/share/link?url=' . $this->pageURL . '&name=' . $this->title . '&description=' . $this->description . ''
             :
             '';
@@ -307,7 +326,8 @@ html;
      * ALIAS
      * Generate a URL to share this content on Twitter
      * Specs: https://dev.twitter.com/web/tweet-button/web-intent.
-     * @param string $customDescription   e.g. foo bar cool stuff
+     *
+     * @param string $customDescription e.g. foo bar cool stuff
      */
     public function PinterestShareLink(?string $customDescription = ''): string
     {
@@ -317,13 +337,14 @@ html;
     /**
      * Generate a URL to share this content on Twitter
      * Specs: https://dev.twitter.com/web/tweet-button/web-intent.
-     * @param string $customDescription   e.g. foo bar cool stuff
+     *
+     * @param string $customDescription e.g. foo bar cool stuff
      */
     public function getPinterestShareLink(?string $customDescription = ''): string
     {
         $this->getShareThisArray($customDescription);
 
-        return $this->pageURL !== '' ?
+        return '' !== $this->pageURL ?
             'http://pinterest.com/pin/create/button/?url=' . $this->pageURL . '&description=' . $this->description . '&media=' . $this->media . ''
             :
             '';
@@ -332,7 +353,8 @@ html;
     /**
      * ALIAS
      * Generate a 'mailto' URL to share this content via Email.
-     * @param string $customDescription   e.g. foo bar cool stuff
+     *
+     * @param string $customDescription e.g. foo bar cool stuff
      */
     public function EmailShareLink(?string $customDescription = ''): string
     {
@@ -341,20 +363,22 @@ html;
 
     /**
      * Generate a 'mailto' URL to share this content via Email.
-     * @param string $customDescription   e.g. foo bar cool stuff
+     *
+     * @param string $customDescription e.g. foo bar cool stuff
      */
     public function getEmailShareLink(?string $customDescription = ''): string
     {
         $this->getShareThisArray($customDescription);
 
-        return $this->pageURL !== '' ? 'mailto:?subject=' . $this->title . '&body=' . $this->pageURL . '' : '';
+        return '' !== $this->pageURL ? 'mailto:?subject=' . $this->title . '&body=' . $this->pageURL . '' : '';
     }
 
     /**
      * ALIAS
      * Generate a URL to share this content on Twitter
      * Specs: https://dev.twitter.com/web/tweet-button/web-intent.
-     * @param string $customDescription   e.g. foo bar cool stuff
+     *
+     * @param string $customDescription e.g. foo bar cool stuff
      */
     public function RedditShareLink(?string $customDescription = ''): string
     {
@@ -364,17 +388,18 @@ html;
     /**
      * Generate a URL to share this content on Twitter
      * Specs: https://dev.twitter.com/web/tweet-button/web-intent.
-     * @param string $customDescription   e.g. foo bar cool stuff
+     *
+     * @param string $customDescription e.g. foo bar cool stuff
      */
     public function getRedditShareLink(?string $customDescription = ''): string
     {
         $this->getShareThisArray($customDescription);
 
-        return $this->pageURL !== '' ? 'http://reddit.com/submit?url=' . $this->pageURL . '&title=' . $this->title . '' : '';
+        return '' !== $this->pageURL ? 'http://reddit.com/submit?url=' . $this->pageURL . '&title=' . $this->title . '' : '';
     }
 
     /**
-     * @param string $customDescription   e.g. foo bar cool stuff
+     * @param string $customDescription e.g. foo bar cool stuff
      */
     public function getShareThisArray(?string $customDescription = ''): array
     {
@@ -417,7 +442,7 @@ html;
 
     /**
      * @param string $imageMethod   e.g. MyImage
-     * @param bool $useImageTitle  if set to false, it will use the page title as the image title
+     * @param bool   $useImageTitle if set to false, it will use the page title as the image title
      */
     public function PinterestLinkForSpecificImage(string $imageMethod, ?bool $useImageTitle = false): string
     {
@@ -433,12 +458,14 @@ html;
             $image = $this->object->{$imageMethod}();
             if ($image && $image->exists()) {
                 $imageTitle = $useImageTitle ? $image->Title : $this->object->Title;
+
                 return 'http://pinterest.com/pin/create/button/'
                     . '?url=' . urlencode($this->object->AbsoluteLink()) . '&amp;'
                     . 'description=' . urlencode($imageTitle) . '&amp;'
                     . 'media=' . urlencode($image->AbsoluteLink());
             }
         }
+
         return '';
     }
 
@@ -495,6 +522,7 @@ html;
                         $image = $this->object->{$imageMethod}();
                         if ($image && $image->exists()) {
                             $media = $image->AbsoluteLink();
+
                             break;
                         }
                     }
