@@ -11,7 +11,7 @@ use Sunnysideup\ShareThisSimple\Api\ShareThisSimpleProvider;
  * OLD:  extends DataExtension (ignore case)
  * NEW:  extends DataExtension (COMPLEX)
  * EXP: Check for use of $this->anyVar and replace with $this->anyVar[$this->owner->ID] or consider turning the class into a trait
- * ### @@@@ STOP REPLACEMENT @@@@ ###
+ * ### @@@@ STOP REPLACEMENT @@@@ ###.
  */
 class ShareThisSimpleExtension extends DataExtension
 {
@@ -19,7 +19,7 @@ class ShareThisSimpleExtension extends DataExtension
 
     /**
      * use in your templates like this:
-     *     $ShareThisSimpleProvider.FacebookLink
+     *     $ShareThisSimpleProvider.FacebookLink.
      *
      * @return ShareThisSimpleProvider
      */
