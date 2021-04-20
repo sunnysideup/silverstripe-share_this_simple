@@ -179,7 +179,7 @@ html;
     public function ShareThisLinks(?string $customDescription = ''): ArrayList
     {
         $arrayList = ArrayList::create();
-        $options = array_keys($this->config()->get('casting')); //$this->config()->get('casting') ???
+        $options = array_keys(Config::inst()->get(ShareThisSimpleProvider::class, 'casting', Config::UNINHERITED));
         foreach ($options as $option) {
             $className = str_replace('ShareLink', '', $option);
             $className = strtolower($className);
@@ -196,6 +196,7 @@ html;
 
         return $arrayList;
     }
+
 
     /**
      * ALIAS
@@ -287,9 +288,9 @@ html;
         $this->getShareThisArray($customDescription);
 
         return '' !== $this->pageURL ?
-           'https://www.linkedin.com/shareArticle?mini=true&url=' . $this->pageURL . '&summary=' . $this->titleFull . ''
-           :
-           '';
+            'https://www.linkedin.com/shareArticle?mini=true&url=' . $this->pageURL . '&summary=' . $this->titleFull . ''
+            :
+            '';
     }
 
     /**
@@ -404,7 +405,7 @@ html;
     public function getShareThisArray(?string $customDescription = ''): array
     {
         $cacheKey = $this->object->ID . '_' . preg_replace('#[^A-Za-z0-9]#', '_', $customDescription);
-        if (! isset(self::$cacheGetShareThisArray[$cacheKey])) {
+        if (!isset(self::$cacheGetShareThisArray[$cacheKey])) {
             //1. link
             $this->link = $this->shareThisLinkField();
 
