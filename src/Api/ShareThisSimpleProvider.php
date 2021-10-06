@@ -12,7 +12,7 @@ use SilverStripe\View\ViewableData;
 class ShareThisSimpleProvider extends ViewableData
 {
     /**
-     * @var DataObject
+     * @var DataObject|null
      */
     protected $object;
 
