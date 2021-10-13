@@ -10,7 +10,7 @@ use Sunnysideup\ShareThisSimple\Api\ShareThisSimpleProvider;
  * WHY: upgrade to SS4
  * OLD:  extends DataExtension (ignore case)
  * NEW:  extends DataExtension (COMPLEX)
- * EXP: Check for use of $this->anyVar and replace with $this->anyVar[$this->owner->ID] or consider turning the class into a trait
+ * EXP: Check for use of $this->anyVar and replace with $this->anyVar[$this->getOwner()->ID] or consider turning the class into a trait
  * ### @@@@ STOP REPLACEMENT @@@@ ###.
  */
 class ShareThisSimpleExtension extends DataExtension
@@ -25,10 +25,10 @@ class ShareThisSimpleExtension extends DataExtension
      */
     public function ShareThisSimpleProvider()
     {
-        if (! isset(self::$_share_this_simple_provider[$this->owner->ID])) {
-            self::$_share_this_simple_provider[$this->owner->ID] = ShareThisSimpleProvider::create($this->owner);
+        if (! isset(self::$_share_this_simple_provider[$this->getOwner()->ID])) {
+            self::$_share_this_simple_provider[$this->getOwner()->ID] = ShareThisSimpleProvider::create($this->owner);
         }
 
-        return self::$_share_this_simple_provider[$this->owner->ID];
+        return self::$_share_this_simple_provider[$this->getOwner()->ID];
     }
 }
