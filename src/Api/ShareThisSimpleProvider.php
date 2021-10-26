@@ -539,9 +539,8 @@ html;
             $description = $customDescription;
         } else {
             $description = '';
-            if ($descriptionMethod = $this->descriptionMethod) {
-                //do nothing
-            } else {
+            $descriptionMethod = $this->descriptionMethod;
+            if (! $descriptionMethod) {
                 $descriptionMethod = Config::inst()->get(
                     'ShareThisSimpleProvider',
                     'description_method'
