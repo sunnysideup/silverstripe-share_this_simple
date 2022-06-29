@@ -22,7 +22,9 @@ class ShareThisSimpleProvider extends ViewableData
 
     protected $imageMethods = [];
 
-    protected $descriptionMethod = 'SocialMediaDescription'; //change to 'SocialMediaDescription'
+    protected $descriptionMethod = 'SocialMediaDescription';
+
+    //change to 'SocialMediaDescription'
 
     protected $hashTagArray = [];
 
@@ -403,7 +405,7 @@ html;
      */
     public function getShareThisArray(?string $customDescription = ''): array
     {
-        $cacheKey = $this->object->ID . '_' . preg_replace('#[^A-Za-z0-9]#', '_', $customDescription);
+        $cacheKey = $this->object->ID . \_::class . preg_replace('#[^A-Za-z0-9]#', \_::class, $customDescription);
         if (! isset(self::$cacheGetShareThisArray[$cacheKey])) {
             //1. link
             $this->link = $this->shareThisLinkField();
@@ -433,6 +435,7 @@ html;
                 'vias' => rawurlencode($this->vias),
             ];
         }
+
         foreach (self::$cacheGetShareThisArray[$cacheKey] as $field => $value) {
             $this->{$field} = $value;
         }
@@ -514,6 +517,7 @@ html;
                 'image_methods'
             );
         }
+
         if (is_array($imageMethods) && count($imageMethods)) {
             foreach ($imageMethods as $imageMethod) {
                 if ($this->object->hasMethod($imageMethod)) {
@@ -546,6 +550,7 @@ html;
                     'description_method'
                 );
             }
+
             if ($descriptionMethod) {
                 $description = $this->shareThisFieldAsString($descriptionMethod);
             }
