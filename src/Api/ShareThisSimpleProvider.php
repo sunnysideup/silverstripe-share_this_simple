@@ -405,7 +405,7 @@ html;
      */
     public function getShareThisArray(?string $customDescription = ''): array
     {
-        $cacheKey = $this->object->ID . \_::class . preg_replace('#[^A-Za-z0-9]#', \_::class, $customDescription);
+        $cacheKey = $this->object->ID . '_' . preg_replace('#[^A-Za-z0-9]#', '_', $customDescription);
         if (! isset(self::$cacheGetShareThisArray[$cacheKey])) {
             //1. link
             $this->link = $this->shareThisLinkField();
