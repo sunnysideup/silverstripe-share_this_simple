@@ -167,7 +167,7 @@ class ShareThisSimpleProvider extends ViewableData
         $height = $this->Config()->get('pop_up_window_height');
         $html = <<<html
                     onclick="
-                        window.open(this.href,'Share','width={$width},height={$height},toolbar=no,menubar=no,location=no,status=no,scrollbars=no,resizable=yes');
+                        window.open(this.href,'Share','width={$width},height={$height},toolbar=no,menubar=no,location=no,status=no,scrollbars=no,resizable');
                         return false;
                     "
 html;
