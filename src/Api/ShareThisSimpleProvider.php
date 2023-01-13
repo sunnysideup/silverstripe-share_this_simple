@@ -186,7 +186,7 @@ html;
         $arrayList = ArrayList::create();
         $options = array_keys(Config::inst()->get(ShareThisSimpleProvider::class, 'casting', Config::UNINHERITED));
         foreach ($options as $option) {
-            $className = str_replace('ShareLink', '', $option);
+            $className = str_replace('ShareLink', '', (string) $option);
             $className = strtolower($className);
             $method = 'get' . $option;
             $arrayList->push(
