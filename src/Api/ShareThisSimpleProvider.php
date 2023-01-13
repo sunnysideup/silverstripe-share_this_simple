@@ -77,11 +77,11 @@ class ShareThisSimpleProvider extends ViewableData
      */
     protected $vias = '';
 
+    protected static $cacheGetShareThisArray = [];
+
     private static $pop_up_window_height = 320;
 
     private static $pop_up_window_width = 320;
-
-    protected static $cacheGetShareThisArray = [];
 
     private static $description_method = '';
 
