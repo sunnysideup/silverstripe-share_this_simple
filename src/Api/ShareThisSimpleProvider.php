@@ -6,6 +6,7 @@ use SilverStripe\Core\Config\Config;
 use SilverStripe\ORM\ArrayList;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\ORM\FieldType\DBField;
+use SilverStripe\ORM\FieldType\DBHTMLText;
 use SilverStripe\View\ArrayData;
 use SilverStripe\View\ViewableData;
 
@@ -161,7 +162,7 @@ class ShareThisSimpleProvider extends ViewableData
         return $this;
     }
 
-    public function getWindowPopupHtml(): string
+    public function getWindowPopupHtml(): DBHTMLText
     {
         $width = $this->Config()->get('pop_up_window_width');
         $height = $this->Config()->get('pop_up_window_height');
@@ -173,7 +174,7 @@ class ShareThisSimpleProvider extends ViewableData
 html;
         $html = preg_replace('#\s+#', ' ', $html);
 
-        return DBField::create_field('HTMLText', $html);
+        return DBHTMLText::create_field('HTMLText', $html);
     }
 
     /**
@@ -409,7 +410,7 @@ html;
     public function getShareThisArray(?string $customDescription = ''): array
     {
         $cacheKey = $this->object->ID . '_' . preg_replace('#[^A-Za-z0-9]#', '_', $customDescription);
-        if (! isset(self::$cacheGetShareThisArray[$cacheKey])) {
+        if (!isset(self::$cacheGetShareThisArray[$cacheKey])) {
             //1. link
             $this->link = $this->shareThisLinkField();
 
@@ -547,7 +548,7 @@ html;
         } else {
             $description = '';
             $descriptionMethod = $this->descriptionMethod;
-            if (! $descriptionMethod) {
+            if (!$descriptionMethod) {
                 $descriptionMethod = Config::inst()->get(
                     'ShareThisSimpleProvider',
                     'description_method'
