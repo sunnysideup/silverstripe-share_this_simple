@@ -12,6 +12,8 @@ use Sunnysideup\ShareThisSimple\Api\ShareThisSimpleProvider;
  * NEW:  extends DataExtension (COMPLEX)
  * EXP: Check for use of $this->anyVar and replace with $this->anyVar[$this->getOwner()->ID] or consider turning the class into a trait
  * ### @@@@ STOP REPLACEMENT @@@@ ###.
+ *
+ * @property SiteTree|ShareThisSimpleExtension $owner
  */
 class ShareThisSimpleExtension extends DataExtension
 {
