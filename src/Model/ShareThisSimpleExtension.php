@@ -13,7 +13,7 @@ use Sunnysideup\ShareThisSimple\Api\ShareThisSimpleProvider;
  * EXP: Check for use of $this->anyVar and replace with $this->anyVar[$this->getOwner()->ID] or consider turning the class into a trait
  * ### @@@@ STOP REPLACEMENT @@@@ ###.
  *
- * @property SiteTree|ShareThisSimpleExtension $owner
+ * @property \SilverStripe\CMS\Model\SiteTree|\Sunnysideup\ShareThisSimple\Model\ShareThisSimpleExtension $owner
  */
 class ShareThisSimpleExtension extends DataExtension
 {
