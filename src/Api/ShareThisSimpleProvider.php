@@ -3,6 +3,7 @@
 namespace Sunnysideup\ShareThisSimple\Api;
 
 use SilverStripe\Core\Config\Config;
+use SilverStripe\Core\Manifest\ModuleResourceLoader;
 use SilverStripe\ORM\ArrayList;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\ORM\FieldType\DBField;
@@ -93,6 +94,8 @@ class ShareThisSimpleProvider extends ViewableData
     private static $default_hash_tags = [];
 
     private static $image_methods = [];
+
+    private static $icon_links = [];
 
     private static $casting = [
         'FacebookShareLink' => 'Varchar',
@@ -186,15 +189,26 @@ html;
     {
         $arrayList = ArrayList::create();
         $options = array_keys(Config::inst()->get(ShareThisSimpleProvider::class, 'casting', Config::UNINHERITED));
+        $icons = $this->config()->get('icon_links');
         foreach ($options as $option) {
+            if($option === 'PinterestLinkForSpecificImage') {
+                continue;
+            }
             $className = str_replace('ShareLink', '', (string) $option);
             $className = strtolower($className);
+            $icon = '';
+            if(! empty($icons[$className])) {
+                $urlLink = $icons[$className];
+                $url = ModuleResourceLoader::resourceURL($urlLink);
+                $icon = DBField::create_field('HTMLText', '<img src="'.$urlLink.'" alt="'.$option.'" />');
+            }
             $method = 'get' . $option;
             $arrayList->push(
                 ArrayData::create(
                     [
                         'Class' => $className,
                         'Link' => $this->{$method}($customDescription),
+                        'Icon' => $icon,
                     ]
                 )
             );
