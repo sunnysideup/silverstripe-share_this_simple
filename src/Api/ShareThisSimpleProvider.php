@@ -200,7 +200,7 @@ html;
             if(! empty($icons[$className])) {
                 $urlLink = $icons[$className];
                 $url = ModuleResourceLoader::resourceURL($urlLink);
-                $icon = DBField::create_field('HTMLText', '<img src="'.$urlLink.'" alt="'.$option.'" />');
+                $icon = DBField::create_field('HTMLText', '<img src="'.$url.'" alt="'.$option.'" />');
             }
             $method = 'get' . $option;
             $arrayList->push(
