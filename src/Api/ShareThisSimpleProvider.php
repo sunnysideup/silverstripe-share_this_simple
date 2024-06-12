@@ -191,16 +191,16 @@ html;
         $options = array_keys(Config::inst()->get(ShareThisSimpleProvider::class, 'casting', Config::UNINHERITED));
         $icons = $this->config()->get('icon_links');
         foreach ($options as $option) {
-            if($option === 'PinterestLinkForSpecificImage') {
+            if ($option === 'PinterestLinkForSpecificImage') {
                 continue;
             }
             $className = str_replace('ShareLink', '', (string) $option);
             $className = strtolower($className);
             $icon = '';
-            if(! empty($icons[$className])) {
+            if (! empty($icons[$className])) {
                 $urlLink = $icons[$className];
                 $url = ModuleResourceLoader::resourceURL($urlLink);
-                $icon = DBField::create_field('HTMLText', '<img src="'.$url.'" alt="'.$option.'" />');
+                $icon = DBField::create_field('HTMLText', '<img src="' . $url . '" alt="' . $option . '" />');
             }
             $method = 'get' . $option;
             $arrayList->push(
@@ -424,7 +424,7 @@ html;
     public function getShareThisArray(?string $customDescription = ''): array
     {
         $cacheKey = $this->object->ID . '_' . preg_replace('#[^A-Za-z0-9]#', '_', $customDescription);
-        if (!isset(self::$cacheGetShareThisArray[$cacheKey])) {
+        if (! isset(self::$cacheGetShareThisArray[$cacheKey])) {
             //1. link
             $this->link = $this->shareThisLinkField();
 
@@ -480,8 +480,7 @@ html;
             if ($image && $image->exists()) {
                 $imageTitle = $useImageTitle ? $image->Title : $this->object->Title;
 
-                return 'http://pinterest.com/pin/create/button/'
-                    . '?url=' . urlencode($this->object->AbsoluteLink()) . '&amp;'
+                return 'http://pinterest.com/pin/create/button/?url=' . urlencode($this->object->AbsoluteLink()) . '&amp;'
                     . 'description=' . urlencode($imageTitle) . '&amp;'
                     . 'media=' . urlencode($image->AbsoluteLink());
             }
@@ -562,7 +561,7 @@ html;
         } else {
             $description = '';
             $descriptionMethod = $this->descriptionMethod;
-            if (!$descriptionMethod) {
+            if (! $descriptionMethod) {
                 $descriptionMethod = Config::inst()->get(
                     'ShareThisSimpleProvider',
                     'description_method'
