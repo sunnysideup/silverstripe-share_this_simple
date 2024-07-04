@@ -6,13 +6,6 @@ use SilverStripe\ORM\DataExtension;
 use Sunnysideup\ShareThisSimple\Api\ShareThisSimpleProvider;
 
 /**
- * ### @@@@ START REPLACEMENT @@@@ ###
- * WHY: upgrade to SS4
- * OLD:  extends DataExtension (ignore case)
- * NEW:  extends DataExtension (COMPLEX)
- * EXP: Check for use of $this->anyVar and replace with $this->anyVar[$this->getOwner()->ID] or consider turning the class into a trait
- * ### @@@@ STOP REPLACEMENT @@@@ ###.
- *
  * @property \SilverStripe\CMS\Model\SiteTree|\Sunnysideup\ShareThisSimple\Model\ShareThisSimpleExtension $owner
  */
 class ShareThisSimpleExtension extends DataExtension
@@ -27,10 +20,11 @@ class ShareThisSimpleExtension extends DataExtension
      */
     public function ShareThisSimpleProvider()
     {
-        if (! isset(self::$_share_this_simple_provider[$this->getOwner()->ID])) {
-            self::$_share_this_simple_provider[$this->getOwner()->ID] = ShareThisSimpleProvider::create($this->owner);
+        $owner = $this->getOwner();
+        if (! isset(self::$_share_this_simple_provider[$owner->ID])) {
+            self::$_share_this_simple_provider[$owner->ID] = ShareThisSimpleProvider::create($this->owner);
         }
 
-        return self::$_share_this_simple_provider[$this->getOwner()->ID];
+        return self::$_share_this_simple_provider[$owner->ID];
     }
 }
