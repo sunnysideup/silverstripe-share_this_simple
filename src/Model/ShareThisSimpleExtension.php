@@ -6,7 +6,9 @@ use SilverStripe\ORM\DataExtension;
 use Sunnysideup\ShareThisSimple\Api\ShareThisSimpleProvider;
 
 /**
- * @property \SilverStripe\CMS\Model\SiteTree|\Sunnysideup\ShareThisSimple\Model\ShareThisSimpleExtension $owner
+ * Class \Sunnysideup\ShareThisSimple\Model\ShareThisSimpleExtension
+ *
+ * @property SiteTree|ShareThisSimpleExtension $owner
  */
 class ShareThisSimpleExtension extends DataExtension
 {
