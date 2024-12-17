@@ -2,7 +2,7 @@
 
 namespace Sunnysideup\ShareThisSimple\Model;
 
-use SilverStripe\ORM\DataExtension;
+use SilverStripe\Core\Extension;
 use Sunnysideup\ShareThisSimple\Api\ShareThisSimpleProvider;
 
 /**
@@ -10,7 +10,7 @@ use Sunnysideup\ShareThisSimple\Api\ShareThisSimpleProvider;
  *
  * @property SiteTree|ShareThisSimpleExtension $owner
  */
-class ShareThisSimpleExtension extends DataExtension
+class ShareThisSimpleExtension extends Extension
 {
     private static $_share_this_simple_provider = [];
 
