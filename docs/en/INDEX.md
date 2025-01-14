@@ -1,22 +1,36 @@
-# Share this Simple
+# tl;dr
 
 Add Share This links to your Pages...
 
 Options are:
- * ShareThisLinks (list of all links)
- * FacebookShareLink
- * TwitterShareLink
- * TumblrShareLink
- * PinterestShareLink
- * EmailShareLink
- * RedditShareLink
 
+- FacebookShareLink
+- BlueSkyShareLink
+- TwitterShareLink
+- TumblrShareLink
+- PinterestShareLink
+- RedditShareLink
+- LinkedInShareLink
+- EmailShareLink
+- SmsShareLink
+- WhatsAppShareLink
+- SnapchatShareLink
+- SignalShareLink
+- PrintPageLink
+- PinterestLinkForSpecificImage
 
-# Install
+## Install
 
 As per usual - nothing special.
 
-# Usage
+## Usage
+
+Try this:
+
+```
+<% include Sunnysideup/ShareThisSimple/Includes/ShareThisLinks %>
+
+OR
 
 in template within context of a page:
 

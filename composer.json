@@ -27,7 +27,9 @@
     },
     "extra": {
         "expose": [
-            "client/javascript"
+            "client/javascript",
+            "client/images",
+            "client/css"
         ],
         "project-files-installed": [
             "app/.htaccess",
