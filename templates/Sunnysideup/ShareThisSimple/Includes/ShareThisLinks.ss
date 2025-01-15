@@ -105,5 +105,9 @@
     width: 24px;
     height: 24px;
     fill: currentColor;
+    transition: fill 0.3s ease; /* Smooth transition */
+}
+.share-this-icon:hover {
+    fill: #e74c3c; /* Hover color */
 }
 </style>
