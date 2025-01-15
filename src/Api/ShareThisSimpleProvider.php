@@ -296,7 +296,7 @@ html;
         $this->getShareThisArray($customDescription);
 
         return '' === $this->pageURL ? '' :
-            'http://www.tumblr.com/share/link?url=' . ($this->pageURL) . '&name=' . ($this->title) . '&description=' . ($this->description);
+            'https://www.tumblr.com/share/link?url=' . ($this->pageURL) . '&name=' . ($this->title) . '&description=' . ($this->description);
     }
 
 
@@ -311,7 +311,7 @@ html;
         $this->getShareThisArray($customDescription);
 
         return '' === $this->pageURL ? '' :
-            'http://pinterest.com/pin/create/button/?url=' . $this->pageURL . '&description=' . $this->description . '&media=' . $this->media . '';
+            'https://pinterest.com/pin/create/button/?url=' . $this->pageURL . '&description=' . $this->description . '&media=' . $this->media . '';
     }
 
 
@@ -327,14 +327,14 @@ html;
         $this->getShareThisArray($customDescription);
 
         return '' === $this->pageURL ? '' :
-            'http://reddit.com/submit?url=' . $this->pageURL . '&title=' . $this->title;
+            'https://reddit.com/submit?url=' . $this->pageURL . '&title=' . $this->title;
     }
 
     /**
      * Generate a URL to share this content on Twitter
      * Specs: ???
      * example: https://www.linkedin.com/shareArticle?
-     * mini=true&url=http://www.cnn.com&title=&summary=chek this out&source=.
+     * mini=true&url=https://www.cnn.com&title=&summary=chek this out&source=.
      *
      * @param string $customDescription e.g. foo bar cool stuff
      */
@@ -425,7 +425,7 @@ html;
             if ($image && $image->exists()) {
                 $imageTitle = $useImageTitle ? $image->Title : $this->object->Title;
 
-                return 'http://pinterest.com/pin/create/button/?url=' . ($this->object->AbsoluteLink()) . '&amp;'
+                return 'https://pinterest.com/pin/create/button/?url=' . ($this->object->AbsoluteLink()) . '&amp;'
                     . 'description=' . ($imageTitle) . '&amp;'
                     . 'media=' . ($image->AbsoluteLink());
             }
