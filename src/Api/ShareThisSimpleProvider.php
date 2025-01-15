@@ -356,7 +356,7 @@ html;
         $this->getShareThisArray($customDescription);
 
         return '' === $this->pageURL ? '' :
-            'mailto:?subject=' . $this->title . '&body=' . $this->pageURL;
+            'mailto:?subject=' . $this->title . ': ' . $this->pageURL  . '&body=' . $this->pageURL;
     }
 
     /**
