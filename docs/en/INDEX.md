@@ -17,7 +17,7 @@ Options are:
 - SnapchatShareLink
 - SignalShareLink
 - PrintPageLink
-- PinterestLinkForSpecificImage
+
 
 ## Install
 
@@ -45,6 +45,7 @@ OR
 ```html
     <a href="$ShareThisSimpleProvider.TwitterShareLink" >Share on Twitter</a>
 ```
+
 OR
 
 ```html
@@ -53,8 +54,19 @@ OR
 <% end_loop %>
 ```
 
+### Images
 
-# you can also add the following to the config:
+```yml
+SilverStripe\Assets\Image:
+  extensions:
+    - Sunnysideup\ShareThisSimple\Model\FileExtension
+```
+
+```html
+                <a href="$MyImage.PinterestLink" >Share on pinterest</a>
+```
+
+### you can also add the following to the config:
 
 ```yml
 

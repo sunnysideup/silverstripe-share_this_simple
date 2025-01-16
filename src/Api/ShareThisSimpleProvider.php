@@ -110,8 +110,7 @@ class ShareThisSimpleProvider extends ViewableData
         'WhatsAppShareLink' => 'Varchar',
         'SnapchatShareLink' => 'Varchar',
         'SignalShareLink' => 'Varchar',
-        'PrintPageLink' => 'Varchar',
-        'PinterestLinkForSpecificImage' => 'Varchar',
+        'PrintPageLink' => 'Varchar'
     ];
 
     /**
@@ -198,9 +197,6 @@ html;
         $options = array_keys(Config::inst()->get(ShareThisSimpleProvider::class, 'casting', Config::UNINHERITED));
         $icons = $this->config()->get('icon_links');
         foreach ($options as $option) {
-            if ($option === 'PinterestLinkForSpecificImage') {
-                continue;
-            }
             $className = str_replace('ShareLink', '', (string) $option);
             $className = strtolower($className);
             $icon = '';
@@ -416,22 +412,6 @@ html;
     public function getPrintPageLink(): string
     {
         return 'javascript:window.print();';
-    }
-
-    public function getPinterestLinkForSpecificImage(string $imageMethod, ?bool $useImageTitle = false): string
-    {
-        if ($this->object && $this->object->exists() && $this->object->hasMethod($imageMethod)) {
-            $image = $this->object->{$imageMethod}();
-            if ($image && $image->exists()) {
-                $imageTitle = $useImageTitle ? $image->Title : $this->object->Title;
-
-                return 'https://pinterest.com/pin/create/button/?url=' . ($this->object->AbsoluteLink()) . '&amp;'
-                    . 'description=' . ($imageTitle) . '&amp;'
-                    . 'media=' . ($image->AbsoluteLink());
-            }
-        }
-
-        return '';
     }
 
 
