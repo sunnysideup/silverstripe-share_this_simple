@@ -9,7 +9,7 @@ use Sunnysideup\ShareThisSimple\Api\ShareThisSimpleProvider;
 /**
  * Class \Sunnysideup\ShareThisSimple\Model\ShareThisSimpleExtension
  *
- * @property Image|FileExtension $owner
+ * @property FileExtension $owner
  */
 class FileExtension extends Extension
 {
