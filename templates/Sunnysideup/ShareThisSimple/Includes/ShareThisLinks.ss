@@ -59,7 +59,7 @@
                             </svg>
                         </a>
                     </li>
-                    <li>
+                    <%-- <li>
                         <a href="$TumblrShareLink" class="TumblrShareLink" $WindowPopupHtml>
                             <span>Share on Tumblr</span>
                             <svg class="share-this-icon" width="24" height="24">
@@ -74,7 +74,7 @@
                                 <use xlink:href="{$resourceURL('sunnysideup/share_this_simple:client/images/share-this-sprite.svg')}#icon-pinterest"></use>
                             </svg>
                         </a>
-                    </li>
+                    </li> --%>
                     <li>
                         <a href="$RedditShareLink" class="RedditShareLink" $WindowPopupHtml>
                             <span>Share on Reddit</span>
@@ -115,14 +115,14 @@
                             </svg>
                         </a>
                     </li>
-                    <li>
+                    <%-- <li>
                         <a href="$SnapchatShareLink" class="SnapchatShareLink" $WindowPopupHtml>
                             <span>Share via Snapchat</span>
                             <svg class="share-this-icon" width="24" height="24">
                                 <use xlink:href="{$resourceURL('sunnysideup/share_this_simple:client/images/share-this-sprite.svg')}#icon-snapchat"></use>
                             </svg>
                         </a>
-                    </li>
+                    </li> --%>
                     <li>
                         <a href="$SignalShareLink" class="SignalShareLink" $WindowPopupHtml>
                             <span>Share via Signal</span>
