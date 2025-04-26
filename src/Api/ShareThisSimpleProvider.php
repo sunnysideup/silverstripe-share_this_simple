@@ -175,13 +175,8 @@ class ShareThisSimpleProvider extends ViewableData
     {
         $width = $this->Config()->get('pop_up_window_width');
         $height = $this->Config()->get('pop_up_window_height');
-        $html = <<<html
-                    onclick="
-                        window.open(this.href,'Share','width={$width},height={$height},toolbar=no,menubar=no,location=no,status=no,scrollbars=no,resizable');
-                        return false;
-                    "
-html;
-        $html = preg_replace('#\s+#', ' ', $html);
+        $html = 'onclick="return openPopupWindow(this.href);"';
+        // $html = preg_replace('#\s+#', ' ', $html);
 
         return DBHTMLText::create_field('HTMLText', $html);
     }
