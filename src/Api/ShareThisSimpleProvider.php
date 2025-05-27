@@ -347,7 +347,7 @@ class ShareThisSimpleProvider extends ViewableData
         $this->getShareThisArray($customDescription);
 
         return '' === $this->pageURL ? '' :
-            'mailto:?subject=' . $this->title . ': ' . $this->pageURL  . '&body=' . $this->pageURL;
+            'mailto:?subject=' . $this->title . '&body=' . $this->pageURL;
     }
 
     /**
@@ -360,7 +360,7 @@ class ShareThisSimpleProvider extends ViewableData
         $this->getShareThisArray($customDescription);
 
         return '' === $this->pageURL ? '' :
-            'sms:?body=' . ($this->titleFull . ' ' . $this->pageURL);
+            'sms:?body=' . ($this->titleFull . urlencode(' ') . $this->pageURL);
     }
     /**
      * Generate a URL to share this content on WhatsApp.
@@ -372,7 +372,7 @@ class ShareThisSimpleProvider extends ViewableData
         $this->getShareThisArray($customDescription);
 
         return '' === $this->pageURL ? '' :
-            'https://api.whatsapp.com/send?text=' . ($this->titleFull . ' ' . $this->pageURL);
+            'https://api.whatsapp.com/send?text=' . ($this->titleFull . urlencode(' ') . $this->pageURL);
     }
 
     /**
@@ -400,7 +400,7 @@ class ShareThisSimpleProvider extends ViewableData
         $this->getShareThisArray($customDescription);
 
         return '' === $this->pageURL ? '' :
-            'https://signal.me/#p/' . ($this->titleFull . ' ' . $this->pageURL);
+            'https://signal.me/#p/' . ($this->titleFull . urlencode(' ') . $this->pageURL);
     }
 
 
