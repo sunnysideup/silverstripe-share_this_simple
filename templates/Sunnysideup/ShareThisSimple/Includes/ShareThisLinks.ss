@@ -17,19 +17,14 @@
             };
         </script>
         <style>
-            .share-holder {
-                .share-links {
-                    a {
-                        span {
-                            display: none;
-                        }
-                        .share-this-icon {
-                            width: 24px;
-                            height: 24px;
-                            fill: currentColor;
-                        }
-                    }
-                }
+            .share-holder .share-links a span {
+                display: none;
+            }
+
+            .share-holder .share-links a .share-this-icon {
+                width: 24px;
+                height: 24px;
+                fill: currentColor;
             }
         </style>
         <div class="share-holder">
