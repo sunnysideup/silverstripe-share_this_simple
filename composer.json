@@ -23,11 +23,13 @@
         }
     ],
     "require": {
-        "silverstripe/cms": "^4.0"
+        "silverstripe/cms": "^4.0 || ^5.0"
     },
     "extra": {
         "expose": [
-            "client/javascript"
+            "client/javascript",
+            "client/images",
+            "client/css"
         ],
         "project-files-installed": [
             "app/.htaccess",

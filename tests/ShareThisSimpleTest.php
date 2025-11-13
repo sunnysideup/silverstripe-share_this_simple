@@ -2,14 +2,18 @@
 
 use SilverStripe\Dev\SapphireTest;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class ShareThisSimpleTest extends SapphireTest
 {
     protected $usesDatabase = false;
 
     public function TestDevBuild()
     {
-        $exitStatus = shell_exec('php framework/cli-script.php dev/build flush=all  > dev/null; echo $?');
-        $exitStatus = intval(trim($exitStatus));
+        $exitStatus = shell_exec('vendor/bin/sake dev/build flush=all  > dev/null; echo $?');
+        $exitStatus = (int) trim($exitStatus);
         $this->assertSame(0, $exitStatus);
     }
 }

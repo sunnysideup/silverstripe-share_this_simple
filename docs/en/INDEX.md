@@ -1,23 +1,36 @@
-# Share this Simple
+# tl;dr
 
 Add Share This links to your Pages...
 
 Options are:
- * ShareThisLinks (list of all links)
- * FacebookShareLink
- * TwitterShareLink
- * GooglePlusShareLink
- * TumblrShareLink
- * PinterestShareLink
- * EmailShareLink
- * RedditShareLink
+
+- FacebookShareLink
+- BlueSkyShareLink
+- TwitterShareLink
+- TumblrShareLink
+- PinterestShareLink
+- RedditShareLink
+- LinkedInShareLink
+- EmailShareLink
+- SmsShareLink
+- WhatsAppShareLink
+- SnapchatShareLink
+- SignalShareLink
+- PrintPageLink
 
 
-# Install
+## Install
 
 As per usual - nothing special.
 
-# Usage
+## Usage
+
+Try this:
+
+```
+<% include Sunnysideup/ShareThisSimple/Includes/ShareThisLinks %>
+
+OR
 
 in template within context of a page:
 
@@ -32,6 +45,7 @@ OR
 ```html
     <a href="$ShareThisSimpleProvider.TwitterShareLink" >Share on Twitter</a>
 ```
+
 OR
 
 ```html
@@ -40,8 +54,19 @@ OR
 <% end_loop %>
 ```
 
+### Images
 
-# you can also add the following to the config:
+```yml
+SilverStripe\Assets\Image:
+  extensions:
+    - Sunnysideup\ShareThisSimple\Model\FileExtension
+```
+
+```html
+                <a href="$MyImage.PinterestLink" >Share on pinterest</a>
+```
+
+### you can also add the following to the config:
 
 ```yml
 

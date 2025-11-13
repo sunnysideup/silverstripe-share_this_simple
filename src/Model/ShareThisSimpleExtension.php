@@ -2,33 +2,31 @@
 
 namespace Sunnysideup\ShareThisSimple\Model;
 
-use SilverStripe\ORM\DataExtension;
+use SilverStripe\Core\Extension;
 use Sunnysideup\ShareThisSimple\Api\ShareThisSimpleProvider;
 
 /**
- * ### @@@@ START REPLACEMENT @@@@ ###
- * WHY: upgrade to SS4
- * OLD:  extends DataExtension (ignore case)
- * NEW:  extends DataExtension (COMPLEX)
- * EXP: Check for use of $this->anyVar and replace with $this->anyVar[$this->owner->ID] or consider turning the class into a trait
- * ### @@@@ STOP REPLACEMENT @@@@ ###
+ * Class \Sunnysideup\ShareThisSimple\Model\ShareThisSimpleExtension
+ *
+ * @property SiteTree|ShareThisSimpleExtension $owner
  */
-class ShareThisSimpleExtension extends DataExtension
+class ShareThisSimpleExtension extends Extension
 {
     private static $_share_this_simple_provider = [];
 
     /**
      * use in your templates like this:
-     *     $ShareThisSimpleProvider.FacebookLink
+     *     $ShareThisSimpleProvider.FacebookLink.
      *
      * @return ShareThisSimpleProvider
      */
     public function ShareThisSimpleProvider()
     {
-        if (! isset(self::$_share_this_simple_provider[$this->owner->ID])) {
-            self::$_share_this_simple_provider[$this->owner->ID] = ShareThisSimpleProvider::create($this->owner);
+        $owner = $this->getOwner();
+        if (! isset(self::$_share_this_simple_provider[$owner->ID])) {
+            self::$_share_this_simple_provider[$owner->ID] = ShareThisSimpleProvider::create($this->owner);
         }
 
-        return self::$_share_this_simple_provider[$this->owner->ID];
+        return self::$_share_this_simple_provider[$owner->ID];
     }
 }
