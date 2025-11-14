@@ -74,18 +74,11 @@ class ShareThisSimpleProvider extends ViewableData
      */
     protected $mentions = '';
 
-<<<<<<< HEAD
-    protected $vias = [];
 
-    protected static $pop_up_window_height = 280;
-
-    protected static $pop_up_window_width = 320;
-=======
     /**
      * @var string
      */
     protected $vias = '';
->>>>>>> 07a23b30e9c1871c95575bd4021fca74d7e412cd
 
     protected static $cacheGetShareThisArray = [];
 
@@ -112,10 +105,6 @@ class ShareThisSimpleProvider extends ViewableData
         'TumblrShareLink' => 'Varchar',
         'PinterestShareLink' => 'Varchar',
         'RedditShareLink' => 'Varchar',
-<<<<<<< HEAD
-        'PinterestLinkForSpecificImage' => 'Varchar',
-        'WindowPopupHtml' => 'HTMLText',
-=======
         'LinkedInShareLink' => 'Varchar',
         'EmailShareLink' => 'Varchar',
         'SmsShareLink' => 'Varchar',
@@ -123,7 +112,6 @@ class ShareThisSimpleProvider extends ViewableData
         'SnapchatShareLink' => 'Varchar',
         'SignalShareLink' => 'Varchar',
         'PrintPageLink' => 'Varchar'
->>>>>>> 07a23b30e9c1871c95575bd4021fca74d7e412cd
     ];
 
     /**
@@ -188,20 +176,10 @@ class ShareThisSimpleProvider extends ViewableData
     {
         $width = $this->Config()->get('pop_up_window_width');
         $height = $this->Config()->get('pop_up_window_height');
-<<<<<<< HEAD
-        $html = <<<html
-                    onclick="window.open(this.href,'Share','width=${width},height=${height},toolbar=no,menubar=no,location=no,status=no,scrollbars=no,resizable=yes'); return false;"
-html;
-        $html = preg_replace('!\s+!', ' ', $html);
-
-        return DBField::create_field('HTMLText', $html);
-
-=======
         $html = 'onclick="return openPopupWindow(this.href);"';
         // $html = preg_replace('#\s+#', ' ', $html);
 
         return DBHTMLText::create_field('HTMLText', $html);
->>>>>>> 07a23b30e9c1871c95575bd4021fca74d7e412cd
     }
 
     /**
