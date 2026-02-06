@@ -174,8 +174,8 @@ class ShareThisSimpleProvider extends ViewableData
 
     public function getWindowPopupHtml(): DBHTMLText
     {
-        $width = $this->Config()->get('pop_up_window_width');
-        $height = $this->Config()->get('pop_up_window_height');
+        $this->Config()->get('pop_up_window_width');
+        $this->Config()->get('pop_up_window_height');
         $html = 'onclick="return openPopupWindow(this.href);"';
         // $html = preg_replace('#\s+#', ' ', $html);
 
