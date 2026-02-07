@@ -2,9 +2,7 @@
 
 namespace Sunnysideup\ShareThisSimple\Model;
 
-use SilverStripe\Assets\File;
 use SilverStripe\Core\Extension;
-use Sunnysideup\ShareThisSimple\Api\ShareThisSimpleProvider;
 
 /**
  * Class \Sunnysideup\ShareThisSimple\Model\ShareThisSimpleExtension
@@ -13,7 +11,6 @@ use Sunnysideup\ShareThisSimple\Api\ShareThisSimpleProvider;
  */
 class FileExtension extends Extension
 {
-
     public function getPinterestLink(?string $imageMethod = '', ?bool $useImageTitle = false): string
     {
         $owner = $this->getOwner();

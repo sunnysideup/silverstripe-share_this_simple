@@ -74,7 +74,6 @@ class ShareThisSimpleProvider extends ViewableData
      */
     protected $mentions = '';
 
-
     /**
      * @var string
      */
@@ -111,7 +110,7 @@ class ShareThisSimpleProvider extends ViewableData
         'WhatsAppShareLink' => 'Varchar',
         'SnapchatShareLink' => 'Varchar',
         'SignalShareLink' => 'Varchar',
-        'PrintPageLink' => 'Varchar'
+        'PrintPageLink' => 'Varchar',
     ];
 
     /**
@@ -216,7 +215,6 @@ class ShareThisSimpleProvider extends ViewableData
         return $arrayList;
     }
 
-
     /**
      * Generate a URL to share this content on Facebook.
      *
@@ -236,7 +234,6 @@ class ShareThisSimpleProvider extends ViewableData
         return '' === $this->pageURL ? '' :
             'https://www.facebook.com/sharer/sharer.php?u=' . $this->pageURL;
     }
-
 
     /**
      * Generate a URL to share this content on Twitter
@@ -274,7 +271,6 @@ class ShareThisSimpleProvider extends ViewableData
             'https://x.com/intent/tweet?text=' . ($this->titleFull) . '&url=' . $this->pageURL;
     }
 
-
     /**
      * Generate a URL to share this content on Twitter
      * Specs: https://dev.twitter.com/web/tweet-button/web-intent.
@@ -291,7 +287,6 @@ class ShareThisSimpleProvider extends ViewableData
             'https://www.tumblr.com/share/link?url=' . ($this->pageURL) . '&name=' . ($this->title) . '&description=' . ($this->description);
     }
 
-
     /**
      * Generate a URL to share this content on Twitter
      * Specs: https://dev.twitter.com/web/tweet-button/web-intent.
@@ -305,8 +300,6 @@ class ShareThisSimpleProvider extends ViewableData
         return '' === $this->pageURL ? '' :
             'https://pinterest.com/pin/create/button/?url=' . $this->pageURL . '&description=' . $this->description . '&media=' . $this->media . '';
     }
-
-
 
     /**
      * Generate a URL to share this content on Twitter
@@ -363,6 +356,7 @@ class ShareThisSimpleProvider extends ViewableData
         return '' === $this->pageURL ? '' :
             'sms:?body=' . ($this->titleFull . urlencode(' ') . $this->pageURL);
     }
+
     /**
      * Generate a URL to share this content on WhatsApp.
      *
@@ -389,8 +383,6 @@ class ShareThisSimpleProvider extends ViewableData
             'https://www.snapchat.com/share?url=' . $this->pageURL . '&text=' . $this->titleFull;
     }
 
-
-
     /**
      * Generate a URL to share this content on Signal.
      *
@@ -404,12 +396,10 @@ class ShareThisSimpleProvider extends ViewableData
             'https://signal.me/#p/' . ($this->titleFull . urlencode(' ') . $this->pageURL);
     }
 
-
     public function getPrintPageLink(): string
     {
         return 'javascript:window.print();';
     }
-
 
     /**
      * @param string $customDescription e.g. foo bar cool stuff
@@ -453,7 +443,6 @@ class ShareThisSimpleProvider extends ViewableData
 
         return self::$cacheGetShareThisArray[$cacheKey];
     }
-
 
     protected function getValuesFromArrayToString(string $variable, string $staticVariable, ?string $prepender = '@')
     {
