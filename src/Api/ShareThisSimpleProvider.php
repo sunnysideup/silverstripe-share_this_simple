@@ -407,7 +407,7 @@ class ShareThisSimpleProvider extends ViewableData
     public function getShareThisArray(?string $customDescription = ''): array
     {
         $cacheKey = $this->object->ID . '_' . preg_replace('#[^A-Za-z0-9]#', '_', $customDescription);
-        if (! isset(self::$cacheGetShareThisArray[$cacheKey])) {
+        if (! array_key_exists($cacheKey, self::$cacheGetShareThisArray)) {
             //1. link
             $this->link = $this->shareThisLinkField();
 
