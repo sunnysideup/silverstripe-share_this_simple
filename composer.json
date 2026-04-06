@@ -1,56 +1,56 @@
 {
-    "name": "sunnysideup/share_this_simple",
-    "type": "silverstripe-vendormodule",
-    "description": "Silverstripe Module that provides a simple way to add share this links to your website.",
-    "keywords": [
-        "Silverstripe-CMS",
-        "CMS",
-        "Silverstripe",
-        "share",
-        "social media",
-        "share links",
-        "facebook",
-        "pinterest",
-        "twitter",
-        "Site Tree Extensions"
+  "name": "sunnysideup/share_this_simple",
+  "type": "silverstripe-vendormodule",
+  "description": "Silverstripe Module that provides a simple way to add share this links to your website.",
+  "keywords": [
+    "Silverstripe-CMS",
+    "CMS",
+    "Silverstripe",
+    "share",
+    "social media",
+    "share links",
+    "facebook",
+    "pinterest",
+    "twitter",
+    "Site Tree Extensions"
+  ],
+  "license": "BSD-3-Clause",
+  "authors": [
+    {
+      "name": "Nicolaas Francken",
+      "email": "modules@sunnysideup.co.nz",
+      "role": "lead developer"
+    }
+  ],
+  "require": {
+    "silverstripe/cms": "^4.0 || ^5.0"
+  },
+  "extra": {
+    "expose": [
+      "client/javascript",
+      "client/images",
+      "client/css"
     ],
-    "license": "BSD-3-Clause",
-    "authors": [
-        {
-            "name": "Nicolaas Francken",
-            "email": "modules@sunnysideup.co.nz",
-            "role": "lead developer"
-        }
+    "project-files-installed": [
+      "app/.htaccess",
+      "app/_config.php",
+      "app/_config/mysite.yml",
+      "app/src/Page.php",
+      "app/src/PageController.php"
     ],
-    "require": {
-        "silverstripe/cms": "^4.0 || ^5.0"
-    },
-    "extra": {
-        "expose": [
-            "client/javascript",
-            "client/images",
-            "client/css"
-        ],
-        "project-files-installed": [
-            "app/.htaccess",
-            "app/_config.php",
-            "app/_config/mysite.yml",
-            "app/src/Page.php",
-            "app/src/PageController.php"
-        ],
-        "public-files-installed": [
-            ".htaccess",
-            "index.php",
-            "install-frameworkmissing.html",
-            "install.php",
-            "web.config"
-        ]
-    },
-    "autoload": {
-        "psr-4": {
-            "Sunnysideup\\ShareThisSimple\\": "src/"
-        }
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    "public-files-installed": [
+      ".htaccess",
+      "index.php",
+      "install-frameworkmissing.html",
+      "install.php",
+      "web.config"
+    ]
+  },
+  "autoload": {
+    "psr-4": {
+      "Sunnysideup\\ShareThisSimple\\": "src/"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
 }
