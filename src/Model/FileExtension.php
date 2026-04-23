@@ -16,7 +16,7 @@ class FileExtension extends Extension
         $owner = $this->getOwner();
 
         return 'https://pinterest.com/pin/create/button/?url=' . ($owner->AbsoluteLink()) . '&amp;'
-            . 'description=' . rawurlencode($owner->Title) . '&amp;'
-            . 'media=' . rawurlencode($owner->AbsoluteLink());
+            . 'description=' . rawurlencode((string) $owner->Title) . '&amp;'
+            . 'media=' . rawurlencode((string) $owner->AbsoluteLink());
     }
 }
