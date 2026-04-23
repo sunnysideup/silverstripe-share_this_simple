@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sunnysideup\ShareThisSimple\Model;
 
 use SilverStripe\Core\Extension;
@@ -24,7 +26,7 @@ class ShareThisSimpleExtension extends Extension
     {
         $owner = $this->getOwner();
         if (! isset(self::$_share_this_simple_provider[$owner->ID])) {
-            self::$_share_this_simple_provider[$owner->ID] = ShareThisSimpleProvider::create($this->owner);
+            self::$_share_this_simple_provider[$owner->ID] = ShareThisSimpleProvider::create($this->getOwner());
         }
 
         return self::$_share_this_simple_provider[$owner->ID];

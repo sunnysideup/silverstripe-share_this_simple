@@ -13,11 +13,6 @@ use SilverStripe\View\ViewableData;
 
 class ShareThisSimpleProvider extends ViewableData
 {
-    /**
-     * @var null|DataObject
-     */
-    protected $object;
-
     protected $linkMethod = 'AbsoluteLink';
 
     protected $titleMethod = 'Title';
@@ -116,10 +111,9 @@ class ShareThisSimpleProvider extends ViewableData
     /**
      * @param DataObject $object
      */
-    public function __construct($object)
+    public function __construct(protected $object)
     {
         parent::__construct();
-        $this->object = $object;
     }
 
     public function setLinkMethod(string $s): self
@@ -200,6 +194,7 @@ class ShareThisSimpleProvider extends ViewableData
                 $url = ModuleResourceLoader::resourceURL($urlLink);
                 $icon = DBField::create_field('HTMLText', '<img src="' . $url . '" alt="' . $option . '" />');
             }
+
             $method = 'get' . $option;
             $arrayList->push(
                 ArrayData::create(
@@ -406,7 +401,7 @@ class ShareThisSimpleProvider extends ViewableData
      */
     public function getShareThisArray(?string $customDescription = ''): array
     {
-        $cacheKey = $this->object->ID . '_' . preg_replace('#[^A-Za-z0-9]#', '_', $customDescription);
+        $cacheKey = $this->object->ID . '_' . preg_replace('#[^A-Za-z0-9]#', '_', (string) $customDescription);
         if (! array_key_exists($cacheKey, self::$cacheGetShareThisArray)) {
             //1. link
             $this->link = $this->shareThisLinkField();
@@ -431,9 +426,9 @@ class ShareThisSimpleProvider extends ViewableData
                 'media' => rawurlencode($this->media),
                 'description' => rawurlencode($this->description),
                 'descriptionFull' => rawurlencode($this->descriptionFull),
-                'hashTags' => rawurlencode($this->hashTags),
-                'mentions' => rawurlencode($this->mentions),
-                'vias' => rawurlencode($this->vias),
+                'hashTags' => rawurlencode((string) $this->hashTags),
+                'mentions' => rawurlencode((string) $this->mentions),
+                'vias' => rawurlencode((string) $this->vias),
             ];
         }
 
