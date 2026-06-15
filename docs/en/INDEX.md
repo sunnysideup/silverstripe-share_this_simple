@@ -29,6 +29,7 @@ Try this:
 
 ```
 <% include Sunnysideup/ShareThisSimple/Includes/ShareThisLinks %>
+```
 
 OR
 
